@@ -30,9 +30,10 @@ default:
 
   title:
     random: false
-    animation-speed: 5
+    animation-speed: 100
     animation:
-      - "&#992b27This &#a5543cis &#db6446the &#e67b5edefault &#dbaa89scoreboard!"
+      - "&1This &9is &1the &9default &1scoreboard!"
+      - "&9This &1is &9the &1default &9scoreboard!"
 
   line1:
     random: false
