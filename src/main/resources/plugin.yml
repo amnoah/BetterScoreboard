@@ -1,0 +1,12 @@
+name: BetterScoreboard
+version: 1.0.0
+main: better.scoreboard.BetterScoreboard
+api-version: 1.13
+load: POSTWORLD
+softdepend:
+  - BetterReload
+  - PlaceHolderAPI
+depend:
+  - packetevents
+authors:
+  - am noah

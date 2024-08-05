@@ -1,0 +1,79 @@
+# Built-in placeholders:
+#
+# %date% - The current date.
+#
+# %displayname% - The player's current display name.
+# %gamemode% - The player's current gamemode.
+# %health% - The player's current health.
+# %ping% - The player's current ping.
+# %username% - The player's username.
+# %world% - Current world name.
+#
+# %maxplayers% - Max player count.
+# %players% - Current player count.
+# %worldplayers% - The player count of the player's current world.
+
+settings:
+  # How should dates in the date placeholder be formatted?
+  # Info on formatting: https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html
+  date-format: "MMM dd yyyy"
+
+scoreboards:
+  - 'default'
+  - 'nether'
+
+default:
+  weight: 10
+  hide-numbers: true
+  trigger: PERMISSION
+  permission: "better.scoreboard.default"
+
+  title:
+    random: false
+    animation-speed: 5
+    animation:
+      - "&#992b27This &#a5543cis &#db6446the &#e67b5edefault &#dbaa89scoreboard!"
+
+  line1:
+    random: false
+    animation-speed: 20
+    animation:
+      - "&7Welcome to the server!"
+
+  line2:
+    random: false
+    animation-speed: 40
+    animation:
+      - '&7Today is %date%.'
+      - '&8Today is %date%.'
+
+nether:
+  weight: 15
+  hide-numbers: false
+  trigger: WORLD_WHITELIST
+  worlds:
+    - "world_nether"
+
+  title:
+    random: false
+    animation-speed: 5
+    animation:
+      - "&bThis is the nether scoreboard."
+
+  line1:
+    random: false
+    animation-speed: 20
+    animation:
+      - "&7Your world is %world%."
+
+  line2:
+    random: false
+    animation-speed: 10
+    animation:
+      - '&7Your ping is %ping%.'
+
+  line3:
+    random: false
+    animation-speed: 10
+    animation:
+      - '&7Your ping is %ping%.'
