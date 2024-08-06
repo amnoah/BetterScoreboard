@@ -15,6 +15,9 @@ This project makes heavy use of [PacketEvents](https://github.com/retrooper/pack
 - PlaceholderAPI support.
 - Ability to have multiple scoreboards.
 - Ability to activate certain scoreboards via certain triggers.
+- Per-world scoreboards.
+- Permission-based scoreboards.
+- Combinations of per-world and permission-based scoreboards.
 - Scoreboard weight, so only the highest will activate.
 - Per-line update speed.
 - Option to randomly select lines.
