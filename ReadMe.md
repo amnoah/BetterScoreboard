@@ -1,7 +1,7 @@
 # BetterScoreboard
 
 This is a scoreboard plugin written for Spigot and all of its forks that supports 1.20.3 and above. This is far from the
-most feature-packed scoreboard plugin, but it's simple and should be functional enough for most servers!
+most feature-packed scoreboard plugin, but it's simple and should be functional enough for most servers.
 
 ## Features
 - Unlimited character support on all lines.
@@ -20,18 +20,22 @@ most feature-packed scoreboard plugin, but it's simple and should be functional 
 ## Limitations
 - At this time the plugin does not support hex codes.
 
+# Documentation
+
+For information on how to configure BetterScoreboard and create scoreboard, please check the [Config wiki](https://github.com/amnoah/BetterScoreboard/wiki/Config).
+
+For information on how to use placeholders in BetterScoreboard, please check the [Placeholders wiki](https://github.com/amnoah/BetterScoreboard/wiki/Placeholders).
+
+For information on how to use triggers in BetterScoreboard, please check the [Triggers wiki](https://github.com/amnoah/BetterScoreboard/wiki/Triggers).
+
 # Dependencies
 
 ## Required
-- [PacketEvents](https://modrinth.com/plugin/packetevents)
+- [PacketEvents](https://modrinth.com/plugin/packetevents) - Required to send packets to players.
 
 ## Optional
-- [BetterReload](https://modrinth.com/plugin/betterreload)
-- [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/)
-
-# Documentation
-
-WIP
+- [BetterReload](https://modrinth.com/plugin/betterreload) - Required to listen to the reload event.
+- [PlaceholderAPI](https://www.spigotmc.org/resources/placeholderapi.6245/) - Required to use PlaceholderAPI placeholders.
 
 # Support
 

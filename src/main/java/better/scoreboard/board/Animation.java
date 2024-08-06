@@ -38,6 +38,9 @@ public class Animation {
         random = config.getBoolean("random", false);
         animationSpeed = config.getInt("animation-speed", 1);
         animation = config.getStringList("animation");
+
+        if (random) currentIndex = (int) (animation.size() * Math.random());
+
     }
 
     /*
@@ -68,6 +71,9 @@ public class Animation {
     public void tick() {
         // No point in doing any tick tracking if this animation just displays a single line.
         if (animation.size() == 1) return;
+
+        // Should not proceed if it's a static board.
+        if (animationSpeed < 0) return;
 
         // Only progress further once the animation's refresh rate has elapsed.
         currentTick++;
