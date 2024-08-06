@@ -40,6 +40,7 @@ public class Animation {
         animation = config.getStringList("animation");
 
         if (random) currentIndex = (int) (animation.size() * Math.random());
+        if (animationSpeed < 0) updateTick = true;
 
     }
 

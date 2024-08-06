@@ -21,12 +21,12 @@ settings:
 scoreboards:
   - 'default'
   - 'nether'
+  - 'permission'
 
 default:
   weight: 10
   hide-numbers: true
-  trigger: PERMISSION
-  permission: "better.scoreboard.default"
+  trigger: DEFAULT
 
   title:
     random: false
@@ -77,4 +77,32 @@ nether:
     random: false
     animation-speed: 10
     animation:
-      - '&7Your ping is %ping%.'
+      # Placeholder API player placeholders. /papi ecloud download Player
+      - '&7Your x value is %player_x%.'
+
+permission:
+  weight: 12
+  hide-numbers: true
+  trigger: PERMISSION
+  permission: "better.scoreboard.permission"
+
+  title:
+    random: true
+    animation-speed: 100
+    animation:
+      - "&bThis is the permission board!"
+      - "&bYou must be OP or have the permission!"
+
+  line1:
+    random: true
+    animation-speed: -1
+    animation:
+      - "&8Your username is %username%."
+      - "&8Your gamemode is %gamemode%."
+
+  line2:
+    random: false
+    animation-speed: 10
+    animation:
+      - "&7Your ping is %ping%."
+      - "&8Your ping is %ping%."
