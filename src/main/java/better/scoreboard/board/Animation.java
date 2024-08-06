@@ -69,9 +69,6 @@ public class Animation {
      * Progresses the animation forward by 1 tick.
      */
     public void tick() {
-        // No point in doing any tick tracking if this animation just displays a single line.
-        if (animation.size() == 1) return;
-
         // Should not proceed if it's a static board.
         if (animationSpeed < 0) return;
 

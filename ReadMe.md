@@ -3,6 +3,9 @@
 This is a scoreboard plugin written for Spigot and all of its forks that supports 1.20.3 and above. This is far from the
 most feature-packed scoreboard plugin, but it's simple and should be functional enough for most servers.
 
+This project makes heavy use of [PacketEvents](https://github.com/retrooper/packetevents) and 
+[sharkbyte-scoreboard](https://github.com/amnoah/sharkbyte-scoreboard).
+
 ## Features
 - Unlimited character support on all lines.
 - Fully packet based.
