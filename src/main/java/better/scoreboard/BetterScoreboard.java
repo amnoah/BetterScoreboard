@@ -96,15 +96,18 @@ public class BetterScoreboard extends JavaPlugin {
         MessageUtil.setDateFormat(getConfig().getString("settings.date-format"));
 
         // Rebuild the boards.
-        for (String board : getConfig().getStringList("scoreboards")) {
-            ConfigurationSection section = getConfig().getConfigurationSection(board);
+        ConfigurationSection scoreboards = getConfig().getConfigurationSection("scoreboards");
+        if (scoreboards != null) {
+            for (String board : scoreboards.getKeys(false)) {
+                ConfigurationSection section = getConfig().getConfigurationSection(board);
 
-            if (section == null) {
-                getLogger().warning("Could not resolve " + board + " scoreboard in config.yml!");
-                continue;
+                if (section == null) {
+                    getLogger().warning("Could not resolve " + board + " scoreboard in config.yml!");
+                    continue;
+                }
+
+                BoardManager.addBoard(new Board(section));
             }
-
-            BoardManager.addBoard(new Board(section));
         }
 
         // Register users back to boards.
