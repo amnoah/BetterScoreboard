@@ -18,6 +18,27 @@ settings:
   # Info on formatting: https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html
   date-format: "MMM dd yyyy"
 
+conditions:
+  health:
+    criteria:
+      - %health% >= 15
+    type: AND
+    true: '&7%health%'
+    false: '%condition:health2%'
+  health2:
+    criteria:
+      - %health% >= 5
+    type: AND
+    true: '&e%health%'
+    false: '%c%health%'
+  checknicked:
+    criteria:
+      - %displayname% = %username%
+      - permission:betterscoreboard.bypass
+    type: OR
+    true: 'You are not nicked!'
+    false: 'You are currently nicked as %username%.'
+
 scoreboards:
   default:
     weight: 10

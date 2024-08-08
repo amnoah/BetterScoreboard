@@ -23,7 +23,7 @@ import org.bukkit.scheduler.BukkitTask;
  *
  * @Author: am noah
  * @Since: 1.0.0
- * @Updated: 1.0.0
+ * @Updated: 1.1.0
  */
 public class BetterScoreboard extends JavaPlugin {
 
@@ -46,7 +46,11 @@ public class BetterScoreboard extends JavaPlugin {
 
     @Override
     public void onEnable() {
-
+        /*
+         * We only support 1.20.3+.
+         * We could support below with no code changes, but I don't feel like dealing with the limitations of
+         * sharkbyte-scoreboard in older versions.
+         */
         if (PacketEvents.getAPI().getServerManager().getVersion().isOlderThan(ServerVersion.V_1_20_3)) {
             getLogger().warning("You are running on an unsupported version of Minecraft!");
             getLogger().warning("Please update to 1.20.3 or above!");
@@ -95,14 +99,14 @@ public class BetterScoreboard extends JavaPlugin {
 
         MessageUtil.setDateFormat(getConfig().getString("settings.date-format"));
 
-        // Rebuild the boards.
+        // Rebuild the scoreboards.
         ConfigurationSection scoreboards = getConfig().getConfigurationSection("scoreboards");
         if (scoreboards != null) {
-            for (String board : scoreboards.getKeys(false)) {
-                ConfigurationSection section = getConfig().getConfigurationSection(board);
+            for (String scoreboard : scoreboards.getKeys(false)) {
+                ConfigurationSection section = scoreboards.getConfigurationSection(scoreboard);
 
                 if (section == null) {
-                    getLogger().warning("Could not resolve " + board + " scoreboard in config.yml!");
+                    getLogger().warning("Could not resolve scoreboard named \"" + scoreboard + "\" in config.yml!");
                     continue;
                 }
 

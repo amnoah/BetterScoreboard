@@ -1,7 +1,9 @@
 package better.scoreboard.board;
 
+import better.scoreboard.util.Line;
 import org.bukkit.configuration.ConfigurationSection;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -11,11 +13,11 @@ import java.util.List;
  *
  * @Author: am noah
  * @Since: 1.0.0
- * @Updated: 1.0.0
+ * @Updated: 1.1.0
  */
 public class Animation {
 
-    private final List<String> animation;
+    private final List<Line> animation;
     private final int animationSpeed;
     private final boolean random;
 
@@ -31,13 +33,14 @@ public class Animation {
         if (config == null) {
             animationSpeed = 1;
             random = false;
-            animation = Collections.singletonList("Invalid config!");
+            animation = Collections.singletonList(new Line("Invalid Config!"));
             return;
         }
 
         random = config.getBoolean("random", false);
         animationSpeed = config.getInt("animation-speed", 1);
-        animation = config.getStringList("animation");
+        animation = new ArrayList<>();
+        for (String line : config.getStringList("animation")) animation.add(new Line(line));
 
         if (random) currentIndex = (int) (animation.size() * Math.random());
         if (animationSpeed < 0) updateTick = true;
@@ -50,7 +53,7 @@ public class Animation {
     /**
      * Returns the current line of text that should be displayed by this animation.
      */
-    public String getLine() {
+    public Line getLine() {
         return animation.get(currentIndex);
     }
 

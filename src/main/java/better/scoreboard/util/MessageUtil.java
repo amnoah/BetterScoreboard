@@ -7,15 +7,21 @@ import org.bukkit.entity.Player;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Simple utility class for converting messages to client-usable ones.
  *
  * @Author: am noah
  * @Since: 1.0.0
- * @Updated: 1.0.0
+ * @Updated: 1.1.0
  */
 public class MessageUtil {
+
+    private final static Pattern PLACEHOLDER_PATTERN = Pattern.compile("%([^%]*)%");
 
     /*
      * Built in placeholders:
@@ -59,27 +65,43 @@ public class MessageUtil {
      * String modifiers.
      */
 
-    /**
-     * Modify the given string to apply all placeholders and convert color codes.
-     */
-    public static String modify(Player player, String string) {
-        // Set built-in placeholders.
-        string = string.replaceAll("%date%", LocalDateTime.now().format(dateFormatter));
+    public static Set<String> separatePlaceholders(String text) {
+        Set<String> separated = new HashSet<>();
+        Matcher matcher = PLACEHOLDER_PATTERN.matcher(text);
+        while (matcher.find()) separated.add(matcher.group());
+        return separated;
+    }
 
-        string = string.replaceAll("%displayname%", player.getDisplayName());
-        string = string.replaceAll("%gamemode%", player.getGameMode().name());
-        string = string.replaceAll("%health%", String.valueOf(player.getHealth()));
-        string = string.replaceAll("%ping%", String.valueOf(player.getPing()));
-        string = string.replaceAll("%username%", player.getName());
-        string = string.replaceAll("%world%", player.getWorld().getName());
+    public static String setPlaceholder(Player player, String placeholder) {
+        switch (placeholder) {
+            case "%date%":
+                return LocalDateTime.now().format(dateFormatter);
+            case "%displayname%":
+                return player.getDisplayName();
+            case "%gamemode%":
+                return player.getGameMode().name();
+            case "%health%":
+                return String.valueOf(player.getHealth());
+            case "%ping%":
+                return String.valueOf(player.getPing());
+            case "%username%":
+                return player.getName();
+            case "%world%":
+                return player.getWorld().getName();
+            case "%maxplayers%":
+                return String.valueOf(Bukkit.getMaxPlayers());
+            case "%players%":
+                return String.valueOf(Bukkit.getOnlinePlayers().size());
+            case "%worldplayers%":
+                return String.valueOf(player.getWorld().getPlayers().size());
+            default:
+                if (usePAPI) return PlaceholderAPI.setPlaceholders(player, placeholder);
+        }
 
-        string = string.replaceAll("%maxplayers%", String.valueOf(Bukkit.getMaxPlayers()));
-        string = string.replaceAll("%players", String.valueOf(Bukkit.getOnlinePlayers().size()));
-        string = string.replaceAll("%worldplayers%", String.valueOf(player.getWorld().getPlayers().size()));
+        return placeholder;
+    }
 
-        // Set PAPI placeholders.
-        if (usePAPI) string = PlaceholderAPI.setPlaceholders(player, string);
-
+    public static String translateColors(String string) {
         return ChatColor.translateAlternateColorCodes('&', string);
     }
 }

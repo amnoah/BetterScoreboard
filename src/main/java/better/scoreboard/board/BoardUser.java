@@ -11,7 +11,7 @@ import sharkbyte.scoreboard.core.Scoreboard;
  *
  * @Author: am noah
  * @Since: 1.0.0
- * @Updated: 1.0.0
+ * @Updated: 1.1.0
  */
 public class BoardUser {
 
@@ -78,10 +78,10 @@ public class BoardUser {
         }
 
         activeBoard = board;
-        scoreboard.setTitle(MessageUtil.modify(player, activeBoard.getTitle().getLine()));
+        scoreboard.setTitle(MessageUtil.translateColors(activeBoard.getTitle().getLine().getText(player)));
         scoreboard.setShowNumbers(!activeBoard.shouldHideNumbers());
         // Set active lines.
-        for (int i = 0; i < activeBoard.getLineCount(); i++) scoreboard.setLine(i, MessageUtil.modify(player, activeBoard.getLine(i).getLine()));
+        for (int i = 0; i < activeBoard.getLineCount(); i++) scoreboard.setLine(i, MessageUtil.translateColors(activeBoard.getLine(i).getLine().getText(player)));
         // Remove unused lines.
         for (int i = activeBoard.getLineCount(); i < 15; i++) scoreboard.setLine(i, null);
     }
@@ -92,10 +92,10 @@ public class BoardUser {
     public void tick() {
         if (activeBoard == null) return;
 
-        if (activeBoard.getTitle().isUpdateTick()) scoreboard.setTitle(MessageUtil.modify(player, activeBoard.getTitle().getLine()));
+        if (activeBoard.getTitle().isUpdateTick()) scoreboard.setTitle(MessageUtil.translateColors(activeBoard.getTitle().getLine().getText(player)));
         for (int i = 0; i < activeBoard.getLineCount(); i++) {
             if (!activeBoard.getLine(i).isUpdateTick()) continue;
-            scoreboard.setLine(i, MessageUtil.modify(player, activeBoard.getLine(i).getLine()));
+            scoreboard.setLine(i, MessageUtil.translateColors(activeBoard.getLine(i).getLine().getText(player)));
         }
         scoreboard.update();
     }
