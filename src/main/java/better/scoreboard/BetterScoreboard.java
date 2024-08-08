@@ -2,10 +2,14 @@ package better.scoreboard;
 
 import better.scoreboard.board.Board;
 import better.scoreboard.board.BoardUser;
+import better.scoreboard.condition.Condition;
+import better.scoreboard.condition.impl.NumberConditionCheck;
+import better.scoreboard.condition.impl.StringConditionCheck;
 import better.scoreboard.listener.PlayerUpdateListener;
 import better.scoreboard.listener.ReloadListener;
 import better.scoreboard.manager.BoardManager;
 import better.scoreboard.manager.BoardUserManager;
+import better.scoreboard.manager.ConditionManager;
 import better.scoreboard.manager.TriggerManager;
 import better.scoreboard.trigger.impl.*;
 import better.scoreboard.util.MessageUtil;
@@ -37,6 +41,19 @@ public class BetterScoreboard extends JavaPlugin {
      */
     @Override
     public void onLoad() {
+        ConditionManager.registerConditionCheck(">", new NumberConditionCheck(">"));
+        ConditionManager.registerConditionCheck(">=", new NumberConditionCheck(">="));
+        ConditionManager.registerConditionCheck("<", new NumberConditionCheck("<"));
+        ConditionManager.registerConditionCheck("<=", new NumberConditionCheck("<="));
+        ConditionManager.registerConditionCheck("=", new StringConditionCheck("="));
+        ConditionManager.registerConditionCheck("==", new StringConditionCheck("=="));
+        ConditionManager.registerConditionCheck("!=", new StringConditionCheck("!="));
+        ConditionManager.registerConditionCheck("!==", new StringConditionCheck("!=="));
+        ConditionManager.registerConditionCheck("|-", new StringConditionCheck("|-"));
+        ConditionManager.registerConditionCheck("-|", new StringConditionCheck("-|"));
+        ConditionManager.registerConditionCheck("$", new StringConditionCheck("$"));
+        ConditionManager.registerConditionCheck("$$", new StringConditionCheck("$$"));
+
         TriggerManager.registerTrigger("permission", new PermissionTrigger());
         TriggerManager.registerTrigger("world_whitelist", new WorldWhitelistTrigger());
         TriggerManager.registerTrigger("world_blacklist", new WorldBlacklistTrigger());
@@ -93,11 +110,29 @@ public class BetterScoreboard extends JavaPlugin {
         saveDefaultConfig();
         reloadConfig();
 
+        // Nuke Conditions.
+        ConditionManager.clear();
+
         // Nuke all boards in the system.
         for (BoardUser user : BoardUserManager.getBoardUsers()) user.switchBoard(null);
         BoardManager.clear();
 
         MessageUtil.setDateFormat(getConfig().getString("settings.date-format"));
+
+        // Rebuild the conditions.
+        ConfigurationSection conditions = getConfig().getConfigurationSection("conditions");
+        if (conditions != null) {
+            for (String condition : conditions.getKeys(false)) {
+                ConfigurationSection section = conditions.getConfigurationSection(condition);
+
+                if (section == null) {
+                    getLogger().warning("Could not resolve condition named \"" + condition + "\" in config.yml!");
+                    continue;
+                }
+
+                ConditionManager.addCondition(condition.toLowerCase(), new Condition(section));
+            }
+        }
 
         // Rebuild the scoreboards.
         ConfigurationSection scoreboards = getConfig().getConfigurationSection("scoreboards");

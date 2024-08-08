@@ -4,7 +4,7 @@
 #
 # %displayname% - The player's current display name.
 # %gamemode% - The player's current gamemode.
-# %health% - The player's current health.
+# %health% - The player's current health (rounded).
 # %ping% - The player's current ping.
 # %username% - The player's username.
 # %world% - Current world name.
@@ -21,21 +21,21 @@ settings:
 conditions:
   health:
     criteria:
-      - %health% >= 15
-    type: AND
+      - "%health% >= 15"
+    mode: AND
     true: '&7%health%'
     false: '%condition:health2%'
   health2:
     criteria:
-      - %health% >= 5
-    type: AND
+      - "%health% >= 5"
+    mode: AND
     true: '&e%health%'
     false: '%c%health%'
   checknicked:
     criteria:
-      - %displayname% = %username%
-      - permission:betterscoreboard.bypass
-    type: OR
+      - "%displayname% = %username%"
+      - "permission:betterscoreboard.bypass"
+    mode: OR
     true: 'You are not nicked!'
     false: 'You are currently nicked as %username%.'
 

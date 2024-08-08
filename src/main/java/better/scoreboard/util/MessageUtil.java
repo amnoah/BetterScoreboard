@@ -1,5 +1,6 @@
 package better.scoreboard.util;
 
+import better.scoreboard.manager.ConditionManager;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
@@ -30,7 +31,7 @@ public class MessageUtil {
      *
      * %displayname% - The player's current display name.
      * %gamemode% - The player's current gamemode.
-     * %health% - The player's current health.
+     * %health% - The player's current health (rounded).
      * %ping% - The player's current ping.
      * %username% - The player's username.
      * %world% - Current world name.
@@ -81,7 +82,7 @@ public class MessageUtil {
             case "%gamemode%":
                 return player.getGameMode().name();
             case "%health%":
-                return String.valueOf(player.getHealth());
+                return String.valueOf((int) Math.round(player.getHealth()));
             case "%ping%":
                 return String.valueOf(player.getPing());
             case "%username%":
@@ -95,6 +96,8 @@ public class MessageUtil {
             case "%worldplayers%":
                 return String.valueOf(player.getWorld().getPlayers().size());
             default:
+                if (placeholder.startsWith("%condition:"))
+                    return ConditionManager.getCondition(placeholder.substring(11, placeholder.length() - 1)).getText(player);
                 if (usePAPI) return PlaceholderAPI.setPlaceholders(player, placeholder);
         }
 
