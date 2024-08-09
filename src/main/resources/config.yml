@@ -20,24 +20,27 @@ settings:
 
 conditions:
   health:
-    criteria:
-      - "%health% >= 15"
-    mode: AND
     true: '&7%health%'
     false: '%condition:health2%'
-  health2:
     criteria:
-      - "%health% >= 5"
-    mode: AND
+      - "%health% >= 15"
+  health2:
     true: '&e%health%'
     false: '%c%health%'
+    criteria:
+      - "%health% >= 5"
   checknicked:
+    true: 'You are not nicked.'
+    false: 'You are currently nicked as %username%.'
     criteria:
       - "%displayname% = %username%"
-      - "permission:betterscoreboard.bypass"
+  checkworld:
     mode: OR
-    true: 'You are not nicked!'
-    false: 'You are currently nicked as %username%.'
+    true: "&aYou are not in the overworld!"
+    false: "&aYou are in the overworld!"
+    criteria:
+      - "%world% -| nether"
+      - "%world% -| end"
 
 scoreboards:
   default:
@@ -123,3 +126,9 @@ scoreboards:
       animation:
         - "&7Your ping is %ping%."
         - "&8Your ping is %ping%."
+
+    line3:
+      random: false
+      animation-speed: 20
+      animation:
+        - '&7Your health is %condition:health%'

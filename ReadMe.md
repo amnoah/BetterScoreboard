@@ -12,6 +12,7 @@ This project makes heavy use of [PacketEvents](https://github.com/retrooper/pack
 - Scoreboard updating is run fully async.
 - Non-flicker scoreboard updates.
 - 10 built-in placeholders.
+- Conditional placeholders.
 - PlaceholderAPI support.
 - Ability to have multiple scoreboards.
 - Ability to activate certain scoreboards via certain triggers.
@@ -28,9 +29,13 @@ This project makes heavy use of [PacketEvents](https://github.com/retrooper/pack
 
 # Documentation
 
-For information on how to configure BetterScoreboard and create scoreboard, please check the [Config wiki](https://github.com/amnoah/BetterScoreboard/wiki/Config).
+For information on conditions in BetterScoreboard, please check the [Conditions wiki](https://github.com/amnoah/BetterScoreboard/wiki/Conditions).
+
+For information on how to configure BetterScoreboard, please check the [Config wiki](https://github.com/amnoah/BetterScoreboard/wiki/Config).
 
 For information on how to use placeholders in BetterScoreboard, please check the [Placeholders wiki](https://github.com/amnoah/BetterScoreboard/wiki/Placeholders).
+
+For information on how to create scoreboards in BetterScoreboard, please check the [Scoreboards wiki](https://github.com/amnoah/BetterScoreboard/wiki/Scoreboards).
 
 For information on how to use triggers in BetterScoreboard, please check the [Triggers wiki](https://github.com/amnoah/BetterScoreboard/wiki/Triggers).
 
