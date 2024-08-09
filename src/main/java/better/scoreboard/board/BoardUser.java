@@ -78,10 +78,10 @@ public class BoardUser {
         }
 
         activeBoard = board;
-        scoreboard.setTitle(MessageUtil.translateColors(activeBoard.getTitle().getLine().getText(player)));
+        scoreboard.setTitle(MessageUtil.translateColors(activeBoard.getTitle().getText(player)));
         scoreboard.setShowNumbers(!activeBoard.shouldHideNumbers());
         // Set active lines.
-        for (int i = 0; i < activeBoard.getLineCount(); i++) scoreboard.setLine(i, MessageUtil.translateColors(activeBoard.getLine(i).getLine().getText(player)));
+        for (int i = 0; i < activeBoard.getLineCount(); i++) scoreboard.setLine(i, MessageUtil.translateColors(activeBoard.getLine(i).getText(player)));
         // Remove unused lines.
         for (int i = activeBoard.getLineCount(); i < 15; i++) scoreboard.setLine(i, null);
     }
@@ -92,10 +92,10 @@ public class BoardUser {
     public void tick() {
         if (activeBoard == null) return;
 
-        if (activeBoard.getTitle().isUpdateTick()) scoreboard.setTitle(MessageUtil.translateColors(activeBoard.getTitle().getLine().getText(player)));
+        if (activeBoard.getTitle().isUpdateTick()) scoreboard.setTitle(MessageUtil.translateColors(activeBoard.getTitle().getText(player)));
         for (int i = 0; i < activeBoard.getLineCount(); i++) {
             if (!activeBoard.getLine(i).isUpdateTick()) continue;
-            scoreboard.setLine(i, MessageUtil.translateColors(activeBoard.getLine(i).getLine().getText(player)));
+            scoreboard.setLine(i, MessageUtil.translateColors(activeBoard.getLine(i).getText(player)));
         }
         scoreboard.update();
     }

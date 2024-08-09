@@ -142,7 +142,7 @@ public class BetterScoreboard extends JavaPlugin {
                     continue;
                 }
 
-                ConditionManager.addCondition(condition.toLowerCase(), new Condition(section));
+                ConditionManager.addCondition(condition.toLowerCase(), new Condition(this, section));
             }
         }
 

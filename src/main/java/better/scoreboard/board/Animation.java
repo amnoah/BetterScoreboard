@@ -2,6 +2,7 @@ package better.scoreboard.board;
 
 import better.scoreboard.util.Line;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -51,10 +52,10 @@ public class Animation {
      */
 
     /**
-     * Returns the current line of text that should be displayed by this animation.
+     * Returns the current string of text that should be displayed by this animation.
      */
-    public Line getLine() {
-        return animation.get(currentIndex);
+    public String getText(Player player) {
+        return animation.get(currentIndex).getText(player);
     }
 
     /**

@@ -22,6 +22,7 @@ import java.util.regex.Pattern;
  */
 public class MessageUtil {
 
+    // Stolen from TAB.
     private final static Pattern PLACEHOLDER_PATTERN = Pattern.compile("%([^%]*)%");
 
     /*
@@ -66,6 +67,9 @@ public class MessageUtil {
      * String modifiers.
      */
 
+    /**
+     * Find all placeholders in a given piece of text, separating them into a set.
+     */
     public static Set<String> separatePlaceholders(String text) {
         Set<String> separated = new HashSet<>();
         Matcher matcher = PLACEHOLDER_PATTERN.matcher(text);
@@ -73,6 +77,9 @@ public class MessageUtil {
         return separated;
     }
 
+    /**
+     * Replace a given placeholder with the text it should display.
+     */
     public static String setPlaceholder(Player player, String placeholder) {
         switch (placeholder) {
             case "%date%":
@@ -96,14 +103,19 @@ public class MessageUtil {
             case "%worldplayers%":
                 return String.valueOf(player.getWorld().getPlayers().size());
             default:
+                // Check if it's our condition system.
                 if (placeholder.startsWith("%condition:"))
                     return ConditionManager.getCondition(placeholder.substring(11, placeholder.length() - 1)).getText(player);
+                // Check if it's placeholderapi.
                 if (usePAPI) return PlaceholderAPI.setPlaceholders(player, placeholder);
         }
 
         return placeholder;
     }
 
+    /**
+     * Return a version of the string with all color codes translated into client usable versions.
+     */
     public static String translateColors(String string) {
         return ChatColor.translateAlternateColorCodes('&', string);
     }
