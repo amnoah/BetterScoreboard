@@ -3,8 +3,6 @@ package better.scoreboard;
 import better.scoreboard.board.Board;
 import better.scoreboard.board.BoardUser;
 import better.scoreboard.condition.Condition;
-import better.scoreboard.condition.impl.NumberConditionCheck;
-import better.scoreboard.condition.impl.StringConditionCheck;
 import better.scoreboard.listener.PlayerUpdateListener;
 import better.scoreboard.listener.ReloadListener;
 import better.scoreboard.manager.BoardManager;
@@ -41,18 +39,32 @@ public class BetterScoreboard extends JavaPlugin {
      */
     @Override
     public void onLoad() {
-        ConditionManager.registerConditionCheck(">", new NumberConditionCheck(">"));
-        ConditionManager.registerConditionCheck(">=", new NumberConditionCheck(">="));
-        ConditionManager.registerConditionCheck("<", new NumberConditionCheck("<"));
-        ConditionManager.registerConditionCheck("<=", new NumberConditionCheck("<="));
-        ConditionManager.registerConditionCheck("=", new StringConditionCheck("="));
-        ConditionManager.registerConditionCheck("==", new StringConditionCheck("=="));
-        ConditionManager.registerConditionCheck("!=", new StringConditionCheck("!="));
-        ConditionManager.registerConditionCheck("!==", new StringConditionCheck("!=="));
-        ConditionManager.registerConditionCheck("|-", new StringConditionCheck("|-"));
-        ConditionManager.registerConditionCheck("-|", new StringConditionCheck("-|"));
-        ConditionManager.registerConditionCheck("$", new StringConditionCheck("$"));
-        ConditionManager.registerConditionCheck("$$", new StringConditionCheck("$$"));
+        ConditionManager.registerConditionCheck(">", (leftText, rightText) -> {
+            double left = Double.parseDouble(leftText), right = Double.parseDouble(rightText);
+            return left > right;
+        });
+        ConditionManager.registerConditionCheck(">=", ((leftText, rightText) -> {
+            double left = Double.parseDouble(leftText), right = Double.parseDouble(rightText);
+            return left >= right;
+        }));
+        ConditionManager.registerConditionCheck("<", ((leftText, rightText) -> {
+            double left = Double.parseDouble(leftText), right = Double.parseDouble(rightText);
+            return left < right;
+        }));
+        ConditionManager.registerConditionCheck("<=", ((leftText, rightText) -> {
+            double left = Double.parseDouble(leftText), right = Double.parseDouble(rightText);
+            return left <= right;
+        }));
+        ConditionManager.registerConditionCheck("=", String::equalsIgnoreCase);
+        ConditionManager.registerConditionCheck("==", String::equals);
+        ConditionManager.registerConditionCheck("!=", ((leftText, rightText) -> !leftText.equalsIgnoreCase(rightText)));
+        ConditionManager.registerConditionCheck("!==", ((leftText, rightText) -> !leftText.equals(rightText)));
+        ConditionManager.registerConditionCheck("|-", ((leftText, rightText) -> leftText.toLowerCase().startsWith(rightText.toLowerCase())));
+        ConditionManager.registerConditionCheck("||-", (String::startsWith));
+        ConditionManager.registerConditionCheck("-|", ((leftText, rightText) -> leftText.toLowerCase().endsWith(rightText.toLowerCase())));
+        ConditionManager.registerConditionCheck("-||", (String::endsWith));
+        ConditionManager.registerConditionCheck("$", ((leftText, rightText) -> leftText.toLowerCase().contains(rightText.toLowerCase())));
+        ConditionManager.registerConditionCheck("$$", (String::contains));
 
         TriggerManager.registerTrigger("permission", new PermissionTrigger());
         TriggerManager.registerTrigger("world_whitelist", new WorldWhitelistTrigger());

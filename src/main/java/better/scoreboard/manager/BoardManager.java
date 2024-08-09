@@ -1,8 +1,8 @@
 package better.scoreboard.manager;
 
 import better.scoreboard.board.Board;
-import sharkbyte.universal.data.ArraySet;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public class BoardManager {
 
-    private final static Set<Board> BOARDS = new ArraySet<>();
+    private final static Set<Board> BOARDS = new HashSet<>();
 
     /*
      * Getters.

@@ -1,18 +1,21 @@
 package better.scoreboard.manager;
 
-import better.scoreboard.board.Board;
 import better.scoreboard.condition.Condition;
 import better.scoreboard.condition.ConditionCheck;
-import better.scoreboard.condition.impl.DefaultConditionCheck;
-import better.scoreboard.trigger.Trigger;
-import better.scoreboard.trigger.impl.DefaultTrigger;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ConditionManager {
 
+    private final static ConditionCheck defaultCondition;
+
     private final static Map<String, Condition> CONDITIONS = new HashMap<>();
     private final static Map<String, ConditionCheck> CONDITION_CHECKS = new HashMap<>();
+
+    static {
+        defaultCondition = (((leftText, rightText) -> true));
+    }
 
     /*
      * Conditions Map methods.
@@ -46,9 +49,9 @@ public class ConditionManager {
     }
 
     public static ConditionCheck retrieveConditionCheck(String name) {
-        if (name == null) return new DefaultConditionCheck();
+        if (name == null) return defaultCondition;
         ConditionCheck conditionCheck = CONDITION_CHECKS.get(name.toLowerCase());
-        if (conditionCheck == null) return new DefaultConditionCheck();
+        if (conditionCheck == null) return defaultCondition;
         return conditionCheck;
     }
 }
