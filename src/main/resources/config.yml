@@ -20,13 +20,13 @@ settings:
 
 conditions:
   health:
-    true: '&7%health%'
+    true: '&a%health%'
     false: '%condition:health2%'
     criteria:
       - "%health% >= 15"
   health2:
     true: '&e%health%'
-    false: '%c%health%'
+    false: '&c%health%'
     criteria:
       - "%health% >= 5"
   checknicked:
@@ -67,6 +67,12 @@ scoreboards:
       animation:
         - '&7Today is %date%.'
         - '&8Today is %date%.'
+
+    line3:
+      random: false
+      animation-speed: 10
+      animation:
+        - '%condition:checkworld%'
 
   nether:
     weight: 15
