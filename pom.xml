@@ -7,7 +7,7 @@
     <groupId>am.noah</groupId>
     <artifactId>BetterScoreboard</artifactId>
     <packaging>jar</packaging>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
