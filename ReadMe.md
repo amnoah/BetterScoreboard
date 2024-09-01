@@ -22,7 +22,7 @@ This project makes heavy use of [PacketEvents](https://github.com/retrooper/pack
 - Scoreboard weight, so only the highest will activate.
 - Per-line update speed.
 - Option to randomly select lines.
-- Ability to hide scoreboard score numbers.
+- Ability align text to the left or right.
 
 ## Limitations
 - At this time the plugin does not support hex codes.
