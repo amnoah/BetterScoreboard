@@ -1,6 +1,6 @@
 package better.scoreboard.listener;
 
-import better.scoreboard.manager.BoardUserManager;
+import better.scoreboard.boarduser.BoardUserManager;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;

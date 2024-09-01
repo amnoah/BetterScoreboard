@@ -1,4 +1,4 @@
-package better.scoreboard.board;
+package better.scoreboard.util;
 
 import better.scoreboard.util.Line;
 import org.bukkit.configuration.ConfigurationSection;
@@ -32,16 +32,16 @@ public class Animation {
         currentIndex = currentTick = 0;
 
         if (config == null) {
-            animationSpeed = 1;
+            animationSpeed = -1;
             random = false;
-            animation = Collections.singletonList(new Line("Invalid Config!"));
+            animation = Collections.singletonList(new Line(""));
             return;
         }
 
         random = config.getBoolean("random", false);
-        animationSpeed = config.getInt("animation-speed", 1);
+        animationSpeed = config.getInt("speed", 1);
         animation = new ArrayList<>();
-        for (String line : config.getStringList("animation")) animation.add(new Line(line));
+        for (String line : config.getStringList("text")) animation.add(new Line(line));
 
         if (random) currentIndex = (int) (animation.size() * Math.random());
         if (animationSpeed < 0) updateTick = true;

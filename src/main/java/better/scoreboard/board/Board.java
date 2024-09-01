@@ -1,7 +1,8 @@
 package better.scoreboard.board;
 
-import better.scoreboard.manager.TriggerManager;
+import better.scoreboard.trigger.TriggerManager;
 import better.scoreboard.trigger.Trigger;
+import better.scoreboard.util.Animation;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
@@ -17,8 +18,7 @@ import java.util.List;
  */
 public class Board {
 
-    private final boolean hideNumbers;
-    private final List<Animation> lines;
+    private final List<Animation> leftAligned, rightAligned;
     private final Animation title;
     private final Trigger trigger;
     private final int weight;
@@ -27,10 +27,10 @@ public class Board {
      * Initialize the Board, reading required data from the configuration.
      */
     public Board(ConfigurationSection config) {
-        lines = new ArrayList<>();
+        leftAligned = new ArrayList<>();
+        rightAligned = new ArrayList<>();
 
         weight = config.getInt("weight", 0);
-        hideNumbers = config.getBoolean("hide-numbers", true);
         trigger = TriggerManager.retrieveTrigger(config.getString("trigger"));
         trigger.load(config);
 
@@ -39,7 +39,8 @@ public class Board {
         for (int i = 1; i <= 15; i++) {
             ConfigurationSection section = config.getConfigurationSection("line" + i);
             if (section == null) break;
-            lines.add(new Animation(section));
+            leftAligned.add(new Animation(section.getConfigurationSection("left-aligned")));
+            rightAligned.add(new Animation(section.getConfigurationSection("right-aligned")));
         }
     }
 
@@ -50,15 +51,19 @@ public class Board {
     /**
      * Return the text that should be displayed at the given index.
      */
-    public Animation getLine(int index) {
-        return lines.get(index);
+    public Animation getLeftText(int index) {
+        return leftAligned.get(index);
     }
 
     /**
      * Return the total amount of lines on this board.
      */
     public int getLineCount() {
-        return lines.size();
+        return leftAligned.size();
+    }
+
+    public Animation getRightText(int index) {
+        return rightAligned.get(index);
     }
 
     /**
@@ -73,13 +78,6 @@ public class Board {
      */
     public int getWeight() {
         return weight;
-    }
-
-    /**
-     * Return whether numbers should be hidden on this board.
-     */
-    public boolean shouldHideNumbers() {
-        return hideNumbers;
     }
 
     /*
@@ -98,6 +96,7 @@ public class Board {
      */
     public void tick() {
         title.tick();
-        for (Animation line : lines) line.tick();
+        for (Animation line : leftAligned) line.tick();
+        for (Animation line : rightAligned) line.tick();
     }
 }

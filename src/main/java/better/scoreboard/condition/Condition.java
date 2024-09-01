@@ -1,7 +1,6 @@
 package better.scoreboard.condition;
 
 import better.scoreboard.BetterScoreboard;
-import better.scoreboard.manager.ConditionManager;
 import better.scoreboard.util.Line;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;

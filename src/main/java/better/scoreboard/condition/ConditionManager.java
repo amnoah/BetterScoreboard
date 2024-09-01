@@ -1,4 +1,4 @@
-package better.scoreboard.manager;
+package better.scoreboard.condition;
 
 import better.scoreboard.condition.Condition;
 import better.scoreboard.condition.ConditionCheck;
@@ -23,6 +23,37 @@ public class ConditionManager {
 
     static {
         defaultCondition = (((leftText, rightText) -> true));
+
+        // Register numerical operations.
+        registerConditionCheck(">", (leftText, rightText) -> {
+            double left = Double.parseDouble(leftText), right = Double.parseDouble(rightText);
+            return left > right;
+        });
+        registerConditionCheck(">=", ((leftText, rightText) -> {
+            double left = Double.parseDouble(leftText), right = Double.parseDouble(rightText);
+            return left >= right;
+        }));
+        registerConditionCheck("<", ((leftText, rightText) -> {
+            double left = Double.parseDouble(leftText), right = Double.parseDouble(rightText);
+            return left < right;
+        }));
+        registerConditionCheck("<=", ((leftText, rightText) -> {
+            double left = Double.parseDouble(leftText), right = Double.parseDouble(rightText);
+            return left <= right;
+        }));
+
+        // Register string operations.
+        registerConditionCheck("=", String::equalsIgnoreCase);
+        registerConditionCheck("==", String::equals);
+        registerConditionCheck("!=", ((leftText, rightText) -> !leftText.equalsIgnoreCase(rightText)));
+        registerConditionCheck("!==", ((leftText, rightText) -> !leftText.equals(rightText)));
+        registerConditionCheck("|-", ((leftText, rightText) -> leftText.toLowerCase().startsWith(rightText.toLowerCase())));
+        registerConditionCheck("||-", (String::startsWith));
+        registerConditionCheck("-|", ((leftText, rightText) -> leftText.toLowerCase().endsWith(rightText.toLowerCase())));
+        registerConditionCheck("-||", (String::endsWith));
+        registerConditionCheck("$", ((leftText, rightText) -> leftText.toLowerCase().contains(rightText.toLowerCase())));
+        registerConditionCheck("$$", (String::contains));
+
     }
 
     /*

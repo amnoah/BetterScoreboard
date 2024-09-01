@@ -1,14 +1,14 @@
 package better.scoreboard;
 
 import better.scoreboard.board.Board;
-import better.scoreboard.board.BoardUser;
+import better.scoreboard.boarduser.BoardUser;
 import better.scoreboard.condition.Condition;
 import better.scoreboard.listener.PlayerUpdateListener;
 import better.scoreboard.listener.ReloadListener;
-import better.scoreboard.manager.BoardManager;
-import better.scoreboard.manager.BoardUserManager;
-import better.scoreboard.manager.ConditionManager;
-import better.scoreboard.manager.TriggerManager;
+import better.scoreboard.board.BoardManager;
+import better.scoreboard.boarduser.BoardUserManager;
+import better.scoreboard.condition.ConditionManager;
+import better.scoreboard.trigger.TriggerManager;
 import better.scoreboard.trigger.impl.*;
 import better.scoreboard.util.MessageUtil;
 import com.github.retrooper.packetevents.PacketEvents;
@@ -33,45 +33,6 @@ public class BetterScoreboard extends JavaPlugin {
 
     private Metrics metrics;
     private BukkitTask task;
-
-    /**
-     * Register all built-in triggers as early as we can.
-     */
-    @Override
-    public void onLoad() {
-        ConditionManager.registerConditionCheck(">", (leftText, rightText) -> {
-            double left = Double.parseDouble(leftText), right = Double.parseDouble(rightText);
-            return left > right;
-        });
-        ConditionManager.registerConditionCheck(">=", ((leftText, rightText) -> {
-            double left = Double.parseDouble(leftText), right = Double.parseDouble(rightText);
-            return left >= right;
-        }));
-        ConditionManager.registerConditionCheck("<", ((leftText, rightText) -> {
-            double left = Double.parseDouble(leftText), right = Double.parseDouble(rightText);
-            return left < right;
-        }));
-        ConditionManager.registerConditionCheck("<=", ((leftText, rightText) -> {
-            double left = Double.parseDouble(leftText), right = Double.parseDouble(rightText);
-            return left <= right;
-        }));
-        ConditionManager.registerConditionCheck("=", String::equalsIgnoreCase);
-        ConditionManager.registerConditionCheck("==", String::equals);
-        ConditionManager.registerConditionCheck("!=", ((leftText, rightText) -> !leftText.equalsIgnoreCase(rightText)));
-        ConditionManager.registerConditionCheck("!==", ((leftText, rightText) -> !leftText.equals(rightText)));
-        ConditionManager.registerConditionCheck("|-", ((leftText, rightText) -> leftText.toLowerCase().startsWith(rightText.toLowerCase())));
-        ConditionManager.registerConditionCheck("||-", (String::startsWith));
-        ConditionManager.registerConditionCheck("-|", ((leftText, rightText) -> leftText.toLowerCase().endsWith(rightText.toLowerCase())));
-        ConditionManager.registerConditionCheck("-||", (String::endsWith));
-        ConditionManager.registerConditionCheck("$", ((leftText, rightText) -> leftText.toLowerCase().contains(rightText.toLowerCase())));
-        ConditionManager.registerConditionCheck("$$", (String::contains));
-
-        TriggerManager.registerTrigger("permission", new PermissionTrigger());
-        TriggerManager.registerTrigger("world_whitelist", new WorldWhitelistTrigger());
-        TriggerManager.registerTrigger("world_blacklist", new WorldBlacklistTrigger());
-        TriggerManager.registerTrigger("world_whitelist_and_permission", new PermWorldWhitelistTrigger());
-        TriggerManager.registerTrigger("world_blacklist_and_permission", new PermWorldBlacklistTrigger());
-    }
 
     @Override
     public void onEnable() {

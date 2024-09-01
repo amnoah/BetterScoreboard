@@ -1,6 +1,7 @@
-package better.scoreboard.board;
+package better.scoreboard.boarduser;
 
-import better.scoreboard.manager.BoardManager;
+import better.scoreboard.board.Board;
+import better.scoreboard.board.BoardManager;
 import better.scoreboard.util.MessageUtil;
 import com.github.retrooper.packetevents.PacketEvents;
 import org.bukkit.entity.Player;
@@ -79,11 +80,16 @@ public class BoardUser {
 
         activeBoard = board;
         scoreboard.setTitle(MessageUtil.translateColors(activeBoard.getTitle().getText(player)));
-        scoreboard.setShowNumbers(!activeBoard.shouldHideNumbers());
         // Set active lines.
-        for (int i = 0; i < activeBoard.getLineCount(); i++) scoreboard.setLine(i, MessageUtil.translateColors(activeBoard.getLine(i).getText(player)));
+        for (int i = 0; i < activeBoard.getLineCount(); i++) {
+            scoreboard.setLeftAlignedText(i, MessageUtil.translateColors(activeBoard.getLeftText(i).getText(player)));
+            scoreboard.setRightAlignedText(i, MessageUtil.translateColors(activeBoard.getRightText(i).getText(player)));
+        }
         // Remove unused lines.
-        for (int i = activeBoard.getLineCount(); i < 15; i++) scoreboard.setLine(i, null);
+        for (int i = activeBoard.getLineCount(); i < 15; i++) {
+            scoreboard.setLeftAlignedText(i, null);
+            scoreboard.setRightAlignedText(i, null);
+        }
     }
 
     /**
@@ -94,9 +100,15 @@ public class BoardUser {
 
         if (activeBoard.getTitle().isUpdateTick()) scoreboard.setTitle(MessageUtil.translateColors(activeBoard.getTitle().getText(player)));
         for (int i = 0; i < activeBoard.getLineCount(); i++) {
-            if (!activeBoard.getLine(i).isUpdateTick()) continue;
-            scoreboard.setLine(i, MessageUtil.translateColors(activeBoard.getLine(i).getText(player)));
+            if (activeBoard.getLeftText(i).isUpdateTick()) {
+                scoreboard.setLeftAlignedText(i, MessageUtil.translateColors(activeBoard.getLeftText(i).getText(player)));
+            }
+
+            if (activeBoard.getRightText(i).isUpdateTick()) {
+                scoreboard.setRightAlignedText(i, MessageUtil.translateColors(activeBoard.getRightText(i).getText(player)));
+            }
         }
+
         scoreboard.update();
     }
 }

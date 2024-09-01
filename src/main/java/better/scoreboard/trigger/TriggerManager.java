@@ -1,7 +1,7 @@
-package better.scoreboard.manager;
+package better.scoreboard.trigger;
 
 import better.scoreboard.trigger.Trigger;
-import better.scoreboard.trigger.impl.DefaultTrigger;
+import better.scoreboard.trigger.impl.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +17,14 @@ import java.util.Map;
 public class TriggerManager {
 
     private final static Map<String, Trigger> TRIGGER_MAP = new HashMap<>();
+
+    static {
+        registerTrigger("permission", new PermissionTrigger());
+        registerTrigger("world_whitelist", new WorldWhitelistTrigger());
+        registerTrigger("world_blacklist", new WorldBlacklistTrigger());
+        registerTrigger("world_whitelist_and_permission", new PermWorldWhitelistTrigger());
+        registerTrigger("world_blacklist_and_permission", new PermWorldBlacklistTrigger());
+    }
 
     /**
      * Register a Trigger to be associated with the given name.

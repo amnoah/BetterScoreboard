@@ -1,6 +1,6 @@
 package better.scoreboard.util;
 
-import better.scoreboard.manager.ConditionManager;
+import better.scoreboard.condition.ConditionManager;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;

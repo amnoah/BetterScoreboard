@@ -45,96 +45,146 @@ conditions:
 scoreboards:
   default:
     weight: 10
-    hide-numbers: true
     trigger: DEFAULT
 
     title:
       random: false
-      animation-speed: 100
-      animation:
+      speed: 100
+      text:
         - "&1This &9is &1the &9default &1scoreboard!"
         - "&9This &1is &9the &1default &9scoreboard!"
 
     line1:
-      random: false
-      animation-speed: 20
-      animation:
-        - "&7Welcome to the server!"
+      left-aligned:
+        random: false
+        speed: 20
+        text:
+          - ""
+          - "Welcome "
+          - "Welcome to "
+          - "Welcome to the "
+          - "Welcome to the server!"
+
+      right-aligned:
+        random: false
+        speed: 20
+        text:
+          - "Welcome to the server!"
+          - "to the server!"
+          - "the server!"
+          - "server!"
+          - ""
 
     line2:
-      random: false
-      animation-speed: 40
-      animation:
-        - '&7Today is %date%.'
-        - '&8Today is %date%.'
+      left-aligned:
+        random: false
+        speed: 40
+        text:
+          - '&7Today is %date%.'
+          - '&8Today is %date%.'
 
     line3:
-      random: false
-      animation-speed: 10
-      animation:
-        - '%condition:checkworld%'
+      right-aligned:
+        random: false
+        speed: 10
+        text:
+          - '%condition:checkworld%'
 
   nether:
     weight: 15
-    hide-numbers: false
     trigger: WORLD_WHITELIST
     worlds:
       - "world_nether"
 
     title:
       random: false
-      animation-speed: 5
-      animation:
+      speed: 5
+      text:
         - "&bThis is the nether scoreboard."
 
     line1:
-      random: false
-      animation-speed: 20
-      animation:
-        - "&7Your world is %world%."
+      left-aligned:
+        random: false
+        speed: -1
+        text:
+          - "&7World | "
+
+      right-aligned:
+        random: false
+        speed: 10
+        text:
+          - "&7%world%"
 
     line2:
-      random: false
-      animation-speed: 10
-      animation:
-        - '&7Your ping is %ping%.'
+      left-aligned:
+        random: false
+        speed: -1
+        text:
+          - "&7Ping | "
+
+      right-aligned:
+        random: false
+        speed: 10
+        text:
+          - "&7%ping%ms"
 
     line3:
-      random: false
-      animation-speed: 10
-      animation:
-        # Placeholder API player placeholders. /papi ecloud download Player
-        - '&7Your x value is %player_x%.'
+      left-aligned:
+        random: false
+        speed: -1
+        text:
+          - "&7Coordinates | "
+      right-aligned:
+        random: false
+        speed: 10
+        text:
+          # Placeholder API player placeholders. /papi ecloud download Player
+          - '&7%player_x%, %player_y%, %player_z%.'
 
   permission:
     weight: 12
-    hide-numbers: true
     trigger: PERMISSION
     permission: "better.scoreboard.permission"
 
     title:
       random: true
-      animation-speed: 100
-      animation:
+      speed: 100
+      text:
         - "&bThis is the permission board!"
         - "&bYou must be OP or have the permission!"
 
     line1:
-      random: true
-      animation-speed: -1
-      animation:
-        - "&8Your username is %username%."
-        - "&8Your gamemode is %gamemode%."
+      left-aligned:
+        random: true
+        speed: -1
+        text:
+          - "&8Your username is %username%."
+          - "&8Your gamemode is %gamemode%."
 
     line2:
-      random: false
-      animation-speed: 10
-      animation:
-        - "&7Your ping is %ping%."
-        - "&8Your ping is %ping%."
+      left-aligned:
+        random: false
+        speed: 10
+        text:
+          - "&7Your ping is:"
+          - "&8Your ping is:"
+
+      right-aligned:
+        random: false
+        speed: 10
+        text:
+          - "&7%ping%"
+          - "&8%ping%"
 
     line3:
-      random: false
-      animation-speed: 20
-      animation:
-        - '&7Your health is %condition:health%'
+      left-aligned:
+        random: true
+        speed: 10
+        text:
+          - "This is left aligned!"
+
+      right-aligned:
+        random: false
+        speed: 20
+        text:
+          - "This is right aligned!"

@@ -1,4 +1,4 @@
-package better.scoreboard.manager;
+package better.scoreboard.board;
 
 import better.scoreboard.board.Board;
 
