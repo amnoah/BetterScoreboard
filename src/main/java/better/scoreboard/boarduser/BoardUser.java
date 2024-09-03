@@ -12,7 +12,7 @@ import sharkbyte.scoreboard.core.Scoreboard;
  *
  * @Author: am noah
  * @Since: 1.0.0
- * @Updated: 1.1.0
+ * @Updated: 1.2.0
  */
 public class BoardUser {
 

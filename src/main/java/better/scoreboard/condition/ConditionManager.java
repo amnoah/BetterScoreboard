@@ -12,7 +12,7 @@ import java.util.Map;
  *
  * @Author: am noah
  * @Since: 1.1.0
- * @Updated: 1.1.0
+ * @Updated: 1.2.0
  */
 public class ConditionManager {
 

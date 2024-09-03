@@ -25,7 +25,7 @@ import org.bukkit.scheduler.BukkitTask;
  *
  * @Author: am noah
  * @Since: 1.0.0
- * @Updated: 1.1.0
+ * @Updated: 1.2.0
  */
 public class BetterScoreboard extends JavaPlugin {
 
