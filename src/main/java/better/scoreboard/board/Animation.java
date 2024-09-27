@@ -1,6 +1,7 @@
-package better.scoreboard.util;
+package better.scoreboard.board;
 
-import better.scoreboard.util.Line;
+import better.scoreboard.BetterScoreboard;
+import better.scoreboard.condition.Condition;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
@@ -14,13 +15,14 @@ import java.util.List;
  *
  * @Author: am noah
  * @Since: 1.0.0
- * @Updated: 1.2.0
+ * @Updated: 1.3.0
  */
 public class Animation {
 
     private final List<Line> animation;
     private final int animationSpeed;
     private final boolean random;
+    private final Condition condition;
 
     private int currentIndex, currentTick;
     private boolean updateTick;
@@ -28,13 +30,14 @@ public class Animation {
     /**
      * Initialize the Animation, reading required data from the configuration.
      */
-    public Animation(ConfigurationSection config) {
+    public Animation(BetterScoreboard plugin, ConfigurationSection config) {
         currentIndex = currentTick = 0;
 
         if (config == null) {
             animationSpeed = -1;
             random = false;
             animation = Collections.singletonList(new Line(""));
+            condition = null;
             return;
         }
 
@@ -45,6 +48,9 @@ public class Animation {
 
         if (random) currentIndex = (int) (animation.size() * Math.random());
         if (animationSpeed < 0) updateTick = true;
+
+        if (config.get("criteria") != null) condition = new Condition(plugin, config);
+        else condition = null;
     }
 
     /*
@@ -56,6 +62,11 @@ public class Animation {
      */
     public String getText(Player player) {
         return animation.get(currentIndex).getText(player);
+    }
+
+    public boolean isConditionalTrue(Player player) {
+        if (condition == null) return true;
+        return condition.isTrue(player);
     }
 
     /**

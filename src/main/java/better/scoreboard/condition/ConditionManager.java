@@ -1,8 +1,5 @@
 package better.scoreboard.condition;
 
-import better.scoreboard.condition.Condition;
-import better.scoreboard.condition.ConditionCheck;
-
 import java.util.HashMap;
 import java.util.Map;
 

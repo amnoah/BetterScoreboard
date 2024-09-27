@@ -1,15 +1,13 @@
 package better.scoreboard;
 
 import better.scoreboard.board.Board;
+import better.scoreboard.board.BoardManager;
 import better.scoreboard.boarduser.BoardUser;
+import better.scoreboard.boarduser.BoardUserManager;
 import better.scoreboard.condition.Condition;
+import better.scoreboard.condition.ConditionManager;
 import better.scoreboard.listener.PlayerUpdateListener;
 import better.scoreboard.listener.ReloadListener;
-import better.scoreboard.board.BoardManager;
-import better.scoreboard.boarduser.BoardUserManager;
-import better.scoreboard.condition.ConditionManager;
-import better.scoreboard.trigger.TriggerManager;
-import better.scoreboard.trigger.impl.*;
 import better.scoreboard.util.MessageUtil;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
@@ -25,7 +23,7 @@ import org.bukkit.scheduler.BukkitTask;
  *
  * @Author: am noah
  * @Since: 1.0.0
- * @Updated: 1.2.0
+ * @Updated: 1.3.0
  */
 public class BetterScoreboard extends JavaPlugin {
 
@@ -118,7 +116,7 @@ public class BetterScoreboard extends JavaPlugin {
                     continue;
                 }
 
-                BoardManager.addBoard(new Board(section));
+                BoardManager.addBoard(new Board(this, section));
             }
         }
 

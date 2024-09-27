@@ -178,10 +178,14 @@ scoreboards:
 
     line3:
       left-aligned:
+        mode: OR
+        criteria:
+          - "%world% -| nether"
+
         random: true
         speed: 10
         text:
-          - "This is left aligned!"
+          - ""
 
       right-aligned:
         random: false

@@ -1,7 +1,5 @@
 package better.scoreboard.board;
 
-import better.scoreboard.board.Board;
-
 import java.util.HashSet;
 import java.util.Set;
 

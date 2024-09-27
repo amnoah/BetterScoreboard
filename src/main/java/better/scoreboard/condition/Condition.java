@@ -1,7 +1,7 @@
 package better.scoreboard.condition;
 
 import better.scoreboard.BetterScoreboard;
-import better.scoreboard.util.Line;
+import better.scoreboard.board.Line;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.Permission;
@@ -14,8 +14,8 @@ import java.util.List;
  * This represents and handles a conditional placeholder in the configuration.
  *
  * @Author: am noah
- * @Since: 1.0.0
- * @Updated: 1.1.0
+ * @Since: 1.1.0
+ * @Updated: 1.3.0
  */
 public class Condition {
 
@@ -53,16 +53,24 @@ public class Condition {
     }
 
     /**
+     * Return whether or not the condition
+     */
+    public boolean isTrue(Player player) {
+        if (mode.equals(Mode.AND)) {
+            for (Criteria criteria : this.criteria) if (!criteria.canRun(player)) return false;
+            return true;
+        } else {
+            for (Criteria criteria : this.criteria) if (criteria.canRun(player)) return true;
+            return false;
+        }
+    }
+
+    /**
      * Return the proper text that this condition will produce.
      */
     public String getText(Player player) {
-        if (mode.equals(Mode.AND)) {
-            for (Criteria criteria : this.criteria) if (!criteria.canRun(player)) return falseLine.getText(player);
-            return trueLine.getText(player);
-        } else {
-            for (Criteria criteria : this.criteria) if (criteria.canRun(player)) return trueLine.getText(player);
-            return falseLine.getText(player);
-        }
+        if (isTrue(player)) return trueLine.getText(player);
+        return falseLine.getText(player);
     }
 
     /**

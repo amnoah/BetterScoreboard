@@ -1,5 +1,6 @@
-package better.scoreboard.util;
+package better.scoreboard.board;
 
+import better.scoreboard.util.MessageUtil;
 import org.bukkit.entity.Player;
 
 import java.util.Collections;

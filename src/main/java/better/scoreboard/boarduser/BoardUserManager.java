@@ -1,6 +1,5 @@
 package better.scoreboard.boarduser;
 
-import better.scoreboard.boarduser.BoardUser;
 import org.bukkit.entity.Player;
 
 import java.util.Collection;

@@ -12,7 +12,7 @@ import sharkbyte.scoreboard.core.Scoreboard;
  *
  * @Author: am noah
  * @Since: 1.0.0
- * @Updated: 1.2.0
+ * @Updated: 1.3.0
  */
 public class BoardUser {
 
@@ -101,11 +101,13 @@ public class BoardUser {
         if (activeBoard.getTitle().isUpdateTick()) scoreboard.setTitle(MessageUtil.translateColors(activeBoard.getTitle().getText(player)));
         for (int i = 0; i < activeBoard.getLineCount(); i++) {
             if (activeBoard.getLeftText(i).isUpdateTick()) {
-                scoreboard.setLeftAlignedText(i, MessageUtil.translateColors(activeBoard.getLeftText(i).getText(player)));
+                if (!activeBoard.getLeftText(i).isConditionalTrue(player)) scoreboard.setLeftAlignedText(i, null);
+                else scoreboard.setLeftAlignedText(i, MessageUtil.translateColors(activeBoard.getLeftText(i).getText(player)));
             }
 
             if (activeBoard.getRightText(i).isUpdateTick()) {
-                scoreboard.setRightAlignedText(i, MessageUtil.translateColors(activeBoard.getRightText(i).getText(player)));
+                if (!activeBoard.getRightText(i).isConditionalTrue(player)) scoreboard.setRightAlignedText(i, null);
+                else scoreboard.setRightAlignedText(i, MessageUtil.translateColors(activeBoard.getRightText(i).getText(player)));
             }
         }
 

@@ -1,8 +1,8 @@
 package better.scoreboard.board;
 
-import better.scoreboard.trigger.TriggerManager;
+import better.scoreboard.BetterScoreboard;
 import better.scoreboard.trigger.Trigger;
-import better.scoreboard.util.Animation;
+import better.scoreboard.trigger.TriggerManager;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
@@ -14,7 +14,7 @@ import java.util.List;
  *
  * @Author: am noah
  * @Since: 1.0.0
- * @Updated: 1.2.0
+ * @Updated: 1.3.0
  */
 public class Board {
 
@@ -26,7 +26,7 @@ public class Board {
     /**
      * Initialize the Board, reading required data from the configuration.
      */
-    public Board(ConfigurationSection config) {
+    public Board(BetterScoreboard plugin, ConfigurationSection config) {
         leftAligned = new ArrayList<>();
         rightAligned = new ArrayList<>();
 
@@ -34,13 +34,13 @@ public class Board {
         trigger = TriggerManager.retrieveTrigger(config.getString("trigger"));
         trigger.load(config);
 
-        title = new Animation(config.getConfigurationSection("title"));
+        title = new Animation(plugin, config.getConfigurationSection("title"));
 
         for (int i = 1; i <= 15; i++) {
             ConfigurationSection section = config.getConfigurationSection("line" + i);
             if (section == null) break;
-            leftAligned.add(new Animation(section.getConfigurationSection("left-aligned")));
-            rightAligned.add(new Animation(section.getConfigurationSection("right-aligned")));
+            leftAligned.add(new Animation(plugin, section.getConfigurationSection("left-aligned")));
+            rightAligned.add(new Animation(plugin, section.getConfigurationSection("right-aligned")));
         }
     }
 
