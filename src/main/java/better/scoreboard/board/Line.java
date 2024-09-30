@@ -25,7 +25,7 @@ public class Line {
      */
     public Line(String text) {
         if (text == null) {
-            this.text = "";
+            this.text = null;
             placeholders = Collections.emptySet();
             return;
         }

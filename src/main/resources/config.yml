@@ -185,10 +185,10 @@ scoreboards:
         random: true
         speed: 10
         text:
-          - ""
+          - "This is left aligned nether text!"
 
       right-aligned:
         random: false
         speed: 20
         text:
-          - "This is right aligned!"
+          - "This is aligned to the right!"

@@ -72,6 +72,7 @@ public class MessageUtil {
      */
     public static Set<String> separatePlaceholders(String text) {
         Set<String> separated = new HashSet<>();
+        if (text == null) return separated;
         Matcher matcher = PLACEHOLDER_PATTERN.matcher(text);
         while (matcher.find()) separated.add(matcher.group());
         return separated;

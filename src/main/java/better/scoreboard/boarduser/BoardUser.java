@@ -82,9 +82,17 @@ public class BoardUser {
         scoreboard.setTitle(MessageUtil.translateColors(activeBoard.getTitle().getText(player)));
         // Set active lines.
         for (int i = 0; i < activeBoard.getLineCount(); i++) {
-            scoreboard.setLeftAlignedText(i, MessageUtil.translateColors(activeBoard.getLeftText(i).getText(player)));
-            scoreboard.setRightAlignedText(i, MessageUtil.translateColors(activeBoard.getRightText(i).getText(player)));
-        }
+            scoreboard.setLeftAlignedText(i,
+                    activeBoard.getLeftText(i).isConditionalTrue(player) ?
+                    MessageUtil.translateColors(activeBoard.getLeftText(i).getText(player)) :
+                    null
+            );
+            scoreboard.setRightAlignedText(i,
+                    activeBoard.getRightText(i).isConditionalTrue(player) ?
+                            MessageUtil.translateColors(activeBoard.getRightText(i).getText(player)) :
+                            null
+            );
+       }
         // Remove unused lines.
         for (int i = activeBoard.getLineCount(); i < 15; i++) {
             scoreboard.setLeftAlignedText(i, null);
