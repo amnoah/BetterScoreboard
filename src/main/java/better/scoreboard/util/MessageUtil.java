@@ -118,6 +118,7 @@ public class MessageUtil {
      * Return a version of the string with all color codes translated into client usable versions.
      */
     public static String translateColors(String string) {
+        if (string == null) return null;
         return ChatColor.translateAlternateColorCodes('&', string);
     }
 }

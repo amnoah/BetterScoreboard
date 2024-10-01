@@ -192,3 +192,18 @@ scoreboards:
         speed: 20
         text:
           - "This is aligned to the right!"
+
+    line4:
+      right-aligned:
+        mode: OR
+        criteria:
+          - "%world% -| nether"
+        speed: -1
+        text:
+          - "This line only shows up in the nether!"
+
+    line5:
+      left-aligned:
+        speed: -1
+        text:
+          - "This is the 5th line!"

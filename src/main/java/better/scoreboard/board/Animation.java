@@ -36,7 +36,7 @@ public class Animation {
         if (config == null) {
             animationSpeed = -1;
             random = false;
-            animation = Collections.singletonList(new Line(""));
+            animation = Collections.singletonList(new Line(null));
             condition = null;
             return;
         }
