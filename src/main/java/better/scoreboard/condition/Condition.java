@@ -11,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This represents and handles a conditional placeholder in the configuration.
+ * This represents and handles a condition in the configuration.
+ * This is both used for conditional placeholders (see MessageUtil) and conditional lines (see BoardUser).
  *
  * @Author: am noah
  * @Since: 1.1.0

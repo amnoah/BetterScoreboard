@@ -3,6 +3,7 @@ package better.scoreboard.board;
 import better.scoreboard.util.MessageUtil;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.Set;
 
@@ -13,7 +14,7 @@ import java.util.Set;
  *
  * @Author: am noah
  * @Since: 1.1.0
- * @Updated: 1.1.0
+ * @Updated: 1.3.0
  */
 public class Line {
 
@@ -23,7 +24,7 @@ public class Line {
     /**
      * Initialize the Line object.
      */
-    public Line(String text) {
+    public Line(@Nullable String text) {
         if (text == null) {
             this.text = null;
             placeholders = Collections.emptySet();
@@ -37,7 +38,7 @@ public class Line {
     /**
      * Return the line's text, replacing all placeholders with what's applicable for the given player.
      */
-    public String getText(Player player) {
+    public @Nullable String getText(Player player) {
         String text = this.text;
         for (String placeholder : placeholders) text = text.replaceAll(placeholder, MessageUtil.setPlaceholder(player, placeholder));
         return text;

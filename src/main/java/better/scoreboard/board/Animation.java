@@ -5,6 +5,7 @@ import better.scoreboard.condition.Condition;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -30,7 +31,7 @@ public class Animation {
     /**
      * Initialize the Animation, reading required data from the configuration.
      */
-    public Animation(BetterScoreboard plugin, ConfigurationSection config) {
+    public Animation(BetterScoreboard plugin, @Nullable ConfigurationSection config) {
         currentIndex = currentTick = 0;
 
         if (config == null) {

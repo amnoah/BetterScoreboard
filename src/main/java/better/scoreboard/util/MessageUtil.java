@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  *
  * @Author: am noah
  * @Since: 1.0.0
- * @Updated: 1.1.0
+ * @Updated: 1.3.0
  */
 public class MessageUtil {
 

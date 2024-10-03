@@ -11,6 +11,7 @@ This project makes heavy use of [PacketEvents](https://github.com/retrooper/pack
 - Fully packet based.
 - Scoreboard updating is run fully async.
 - Non-flicker scoreboard updates.
+- Conditional lines (will show/hide based on criteria).
 - 10 built-in placeholders.
 - Conditional placeholders.
 - PlaceholderAPI support.
