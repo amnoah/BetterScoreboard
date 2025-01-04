@@ -8,11 +8,12 @@ import better.scoreboard.spigot.bridge.SpigotPluginLogger;
 import better.scoreboard.spigot.bridge.SpigotUserData;
 import better.scoreboard.spigot.listener.PlayerUpdateListener;
 import better.scoreboard.spigot.listener.ReloadListener;
+import com.tcoded.folialib.FoliaLib;
+import com.tcoded.folialib.wrapper.task.WrappedTask;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitTask;
 
 public class BetterScoreboardSpigot extends JavaPlugin {
 
@@ -20,9 +21,10 @@ public class BetterScoreboardSpigot extends JavaPlugin {
 
     // Core objects.
     private BetterScoreboard core;
+    private FoliaLib foliaLib;
 
     // Bukkit objects.
-    private BukkitTask task;
+    private WrappedTask task;
     private Metrics metrics;
 
     private boolean papiInstalled;
@@ -50,6 +52,7 @@ public class BetterScoreboardSpigot extends JavaPlugin {
     @Override
     public void onEnable() {
         core.enable();
+        foliaLib = new FoliaLib(this);
 
         // Begin bStats.
         metrics = new Metrics(this, B_STATS_ID);
@@ -64,7 +67,7 @@ public class BetterScoreboardSpigot extends JavaPlugin {
         }
 
         load();
-        task = getServer().getScheduler().runTaskTimerAsynchronously(this, () -> core.tick(), 0, 1);
+        task = foliaLib.getScheduler().runTimerAsync(() -> core.tick(), 0, 1);
     }
 
     @Override

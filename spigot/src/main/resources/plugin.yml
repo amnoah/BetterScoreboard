@@ -3,6 +3,7 @@ version: 2.0.0
 main: better.scoreboard.spigot.BetterScoreboardSpigot
 api-version: 1.13
 load: POSTWORLD
+folia-supported: true
 softdepend:
   - BetterReload
   - PlaceHolderAPI

@@ -30,7 +30,7 @@
             <id>spigotmc-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
-        <!-- Repo for BetterReload -->
+        <!-- Repo for BetterReload and FoliaLib -->
         <repository>
             <id>jitpack.io</id>
             <url>https://jitpack.io</url>
@@ -78,6 +78,12 @@
             <artifactId>placeholderapi</artifactId>
             <version>2.10.9</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.technicallycoded</groupId>
+            <artifactId>FoliaLib</artifactId>
+            <version>0.4.3</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -130,11 +136,15 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
-                            <minimizeJar>true</minimizeJar>
+                            <minimizeJar>false</minimizeJar>
                             <relocations>
                                 <relocation>
                                     <pattern>org.bstats</pattern>
                                     <shadedPattern>better.scoreboard.bstats</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.tcoded.folialib</pattern>
+                                    <shadedPattern>better.scoreboard.spigot.folialib</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
