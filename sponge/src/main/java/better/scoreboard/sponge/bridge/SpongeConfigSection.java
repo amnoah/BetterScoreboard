@@ -30,7 +30,7 @@ public class SpongeConfigSection implements ConfigSection {
     }
 
     @Override
-    public @Nullable ConfigSection getConfigSection(String node) {
+    public ConfigSection getConfigSection(String node) {
         if (!hasNode(node)) return null;
         return new SpongeConfigSection(this, section.node(node));
     }

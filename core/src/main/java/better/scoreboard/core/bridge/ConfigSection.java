@@ -9,7 +9,8 @@ public interface ConfigSection {
 
     Collection<String> getChildren();
 
-    @Nullable ConfigSection getConfigSection(String node);
+    // Can be null
+    ConfigSection getConfigSection(String node);
 
     <E> List<E> getList(Class<E> classType, String node);
 

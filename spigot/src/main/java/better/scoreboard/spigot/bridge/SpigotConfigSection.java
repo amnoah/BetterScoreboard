@@ -2,7 +2,6 @@ package better.scoreboard.spigot.bridge;
 
 import better.scoreboard.core.bridge.ConfigSection;
 import org.bukkit.configuration.ConfigurationSection;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -29,7 +28,7 @@ public class SpigotConfigSection implements ConfigSection {
     }
 
     @Override
-    public @Nullable ConfigSection getConfigSection(String node) {
+    public ConfigSection getConfigSection(String node) {
         ConfigurationSection child = section.getConfigurationSection(node);
         if (child == null) return null;
         return new SpigotConfigSection(this, child);
