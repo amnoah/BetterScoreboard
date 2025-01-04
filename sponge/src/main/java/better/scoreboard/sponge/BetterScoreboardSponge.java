@@ -20,7 +20,7 @@ import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.lifecycle.StartedEngineEvent;
 import org.spongepowered.api.event.lifecycle.StartingEngineEvent;
 import org.spongepowered.api.event.lifecycle.StoppingEngineEvent;
-import org.spongepowered.api.plugin.PluginManager;
+import org.spongepowered.api.network.ServerConnectionState;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.util.Ticks;
 import org.spongepowered.configurate.CommentedConfigurationNode;
@@ -50,7 +50,6 @@ public class BetterScoreboardSponge {
     private final Game game;
     private final Logger logger;
     private final PluginContainer pluginContainer;
-    private final PluginManager pluginManager;
     private final Metrics metrics;
 
     @Inject
@@ -58,11 +57,10 @@ public class BetterScoreboardSponge {
     private Path configDirectory;
 
     @Inject
-    public BetterScoreboardSponge(Game game, Logger logger, PluginContainer pluginContainer, PluginManager pluginManager, Metrics.Factory metrics) {
+    public BetterScoreboardSponge(Game game, Logger logger, PluginContainer pluginContainer, Metrics.Factory metrics) {
         this.game = game;
         this.logger = logger;
         this.pluginContainer = pluginContainer;
-        this.pluginManager = pluginManager;
         this.metrics = metrics.make(B_STATS_ID);
     }
 
@@ -93,9 +91,13 @@ public class BetterScoreboardSponge {
         });
         PlaceholderManager.registerPlaceholder("maxplayers", user -> String.valueOf(game.server().maxPlayers()));
         PlaceholderManager.registerPlaceholder("ping", user -> {
+            // The API is missing an easy way to get latency. Thank you gabizou for this work around.   `
             Optional<ServerPlayer> player = game.server().player(user.getUUID());
-            //return player.map(serverPlayer -> String.valueOf(serverPlayer.connection().latency())).orElse("");
-            return "";
+            if (player.isEmpty()) return "";
+            return String.valueOf(player.get().connection().state()
+                    .filter(e -> e instanceof ServerConnectionState.Game)
+                    .map(e -> (ServerConnectionState.Game) e)
+                    .map(ServerConnectionState.Game::latency).orElse(0));
         });
         PlaceholderManager.registerPlaceholder("players", user -> String.valueOf(game.server().onlinePlayers().size()));
         PlaceholderManager.registerPlaceholder("world", user -> {
