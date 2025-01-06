@@ -1,7 +1,6 @@
 package better.scoreboard.sponge.bridge;
 
 import better.scoreboard.core.bridge.ConfigSection;
-import org.jetbrains.annotations.Nullable;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.serialize.SerializationException;
 

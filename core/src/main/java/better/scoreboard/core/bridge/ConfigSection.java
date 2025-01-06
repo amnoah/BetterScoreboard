@@ -1,7 +1,5 @@
 package better.scoreboard.core.bridge;
 
-import org.jetbrains.annotations.Nullable;
-
 import java.util.Collection;
 import java.util.List;
 
