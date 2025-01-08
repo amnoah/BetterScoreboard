@@ -20,27 +20,27 @@ settings:
 
 conditions:
   health:
-    yes: '&a%health%'
-    no: '%condition:health2%'
+    yes-result: '&a%health%'
+    no-result: '%condition:health2%'
     criteria:
       - "%health% >= 15"
   health2:
-    yes: '&e%health%'
-    no: '&c%health%'
+    yes-result: '&e%health%'
+    no-result: '&c%health%'
     criteria:
       - "%health% >= 5"
   checknicked:
-    yes: 'You are not nicked.'
-    no: 'You are currently nicked as %username%.'
+    yes-result: 'You are not nicked.'
+    no-result: 'You are currently nicked as %username%.'
     criteria:
       - "%displayname% = %username%"
   checkworld:
     mode: OR
-    yes: "&aYou are not in the overworld!"
-    no: "&aYou are in the overworld!"
+    yes-result: "&aYou are not in the overworld!"
+    no-result: "&aYou are in the overworld!"
     criteria:
-      - "%world% -| nether"
-      - "%world% -| end"
+      - "%world% $ nether"
+      - "%world% $ end"
 
 boss-bars:
   default:

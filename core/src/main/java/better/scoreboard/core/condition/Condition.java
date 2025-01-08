@@ -28,8 +28,8 @@ public class Condition {
         if (config.getObject(String.class, "mode", "and").equalsIgnoreCase("or")) this.mode = Mode.OR;
         else this.mode = Mode.AND;
 
-        falseLine = new Line(plugin, config.getObject(String.class, "no", null));
-        trueLine = new Line(plugin, config.getObject(String.class, "yes", null));
+        falseLine = new Line(plugin, config.getObject(String.class, "no-result", null));
+        trueLine = new Line(plugin, config.getObject(String.class, "yes-result", null));
     }
 
     public boolean isTrue(User user) {
