@@ -12,7 +12,9 @@ This project and its collaborators use the following regularly and are thankful 
 ## Requirements
 
 This plugin only supports 1.20.3+ on platforms with an existing BetterScoreboard implementation. This includes Spigot,
-Paper (and its forks), Folia, and Sponge.
+Paper (and its forks), Folia, Sponge, and Fabric.
+
+Due to requiring Gradle, the Fabric module has been moved to [here](https://github.com/amnoah/BetterScoreboard-fabric).
 
 ## Quick Feature Breakdown
 - Platform independent design.
