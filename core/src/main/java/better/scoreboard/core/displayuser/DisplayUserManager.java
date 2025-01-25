@@ -36,8 +36,7 @@ public class DisplayUserManager {
     /**
      * Add a DisplayUser associated with the given player object.
      */
-    public static void addDisplayUser(Object player) {
-        User user = PacketEvents.getAPI().getPlayerManager().getUser(player);
+    public static void addDisplayUser(User user) {
         DISPLAY_USER_MAP.put(user, new DisplayUser(user));
     }
 

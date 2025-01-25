@@ -13,9 +13,4 @@ public class PlayerUpdateListener implements Listener {
     public void onChangeWorld(PlayerChangedWorldEvent event) {
         DisplayUserManager.getDisplayUser(PacketEvents.getAPI().getPlayerManager().getUser(event.getPlayer())).checkDisplays();
     }
-
-    @EventHandler
-    public void onPlayerJoin(PlayerJoinEvent event) {
-        DisplayUserManager.addDisplayUser(event.getPlayer());
-    }
 }

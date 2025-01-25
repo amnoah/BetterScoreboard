@@ -11,11 +11,6 @@ import org.spongepowered.api.event.network.ServerSideConnectionEvent;
 public class PlayerUpdateListener {
 
     @Listener
-    public void onJoin(ServerSideConnectionEvent.Join event, @Getter("player") ServerPlayer player) {
-        DisplayUserManager.addDisplayUser(player);
-    }
-
-    @Listener
     public void onWorldChange(ChangeEntityWorldEvent event) {
         if (!(event.entity() instanceof ServerPlayer player)) return;
         DisplayUserManager.getDisplayUser(PacketEvents.getAPI().getPlayerManager().getUser(player)).checkDisplays();
