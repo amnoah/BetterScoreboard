@@ -1,6 +1,5 @@
 package better.scoreboard.core;
 
-import better.scoreboard.core.bridge.ConfigSection;
 import better.scoreboard.core.bridge.PlaceholderProcessor;
 import better.scoreboard.core.bridge.PluginLogger;
 import better.scoreboard.core.bridge.UserData;
@@ -16,6 +15,7 @@ import better.scoreboard.core.listener.JoinLeaveListener;
 import better.scoreboard.core.placeholder.PlaceholderManager;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
+import sharkbyte.configuration.core.ConfigSection;
 
 public class BetterScoreboard {
 
@@ -124,6 +124,7 @@ public class BetterScoreboard {
         for (Display display : DisplayManager.getDisplays()) display.tick();
         for (DisplayUser user : DisplayUserManager.getDisplayUsers()) user.tick();
     }
+
     /*
      * Getters.
      */

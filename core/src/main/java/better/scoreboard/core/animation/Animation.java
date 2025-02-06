@@ -1,10 +1,10 @@
 package better.scoreboard.core.animation;
 
 import better.scoreboard.core.BetterScoreboard;
-import better.scoreboard.core.bridge.ConfigSection;
 import better.scoreboard.core.condition.Condition;
 import com.github.retrooper.packetevents.protocol.player.User;
 import org.jetbrains.annotations.Nullable;
+import sharkbyte.configuration.core.ConfigSection;
 
 import java.util.ArrayList;
 import java.util.List;

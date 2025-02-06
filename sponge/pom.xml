@@ -30,6 +30,11 @@
             <name>Sponge Maven Repository</name>
             <url>https://repo.spongepowered.org/repository/maven-public/</url>
         </repository>
+        <!-- Repo for sharkbyte-configuration -->
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
     </repositories>
 
     <dependencies>
@@ -56,6 +61,12 @@
             <groupId>org.bstats</groupId>
             <artifactId>bstats-sponge</artifactId>
             <version>3.0.2</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.amnoah.sharkbyte-configuration</groupId>
+            <artifactId>configurate</artifactId>
+            <version>b184ffa2a8</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
@@ -111,6 +122,10 @@
                             <createDependencyReducedPom>false</createDependencyReducedPom>
                             <minimizeJar>true</minimizeJar>
                             <relocations>
+                                <relocation>
+                                    <pattern>sharkbyte.configuration</pattern>
+                                    <shadedPattern>better.scoreboard.shaded.configuration</shadedPattern>
+                                </relocation>
                                 <relocation>
                                     <pattern>org.bstats</pattern>
                                     <shadedPattern>better.scoreboard.bstats</shadedPattern>

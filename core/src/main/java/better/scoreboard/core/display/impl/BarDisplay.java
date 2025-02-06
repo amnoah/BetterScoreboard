@@ -5,9 +5,9 @@ import better.scoreboard.core.animation.impl.ColorAnimation;
 import better.scoreboard.core.animation.impl.DivisionAnimation;
 import better.scoreboard.core.animation.impl.HealthAnimation;
 import better.scoreboard.core.animation.impl.TextAnimation;
-import better.scoreboard.core.bridge.ConfigSection;
 import better.scoreboard.core.display.Display;
 import better.scoreboard.core.display.DisplayManager;
+import sharkbyte.configuration.core.ConfigSection;
 
 public class BarDisplay extends Display {
 
@@ -43,15 +43,10 @@ public class BarDisplay extends Display {
     public static void load(BetterScoreboard plugin, ConfigSection config) {
         config = config.getConfigSection("boss-bars");
         if (config != null) {
-            for (String bossBar : config.getChildren()) {
-                ConfigSection section = config.getConfigSection(bossBar);
+            for (ConfigSection bossBar : config.getChildren()) {
+                if (bossBar == null) continue;
 
-                if (section == null) {
-                    plugin.getLogger().logWarning("Could not resolve boss bar named \"" + bossBar + "\" in config.yml!");
-                    continue;
-                }
-
-                DisplayManager.addDisplay(new BarDisplay(plugin, section));
+                DisplayManager.addDisplay(new BarDisplay(plugin, bossBar));
             }
         }
     }

@@ -2,9 +2,9 @@ package better.scoreboard.core.animation.impl;
 
 import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.animation.Animation;
-import better.scoreboard.core.bridge.ConfigSection;
 import better.scoreboard.core.display.Line;
 import org.jetbrains.annotations.Nullable;
+import sharkbyte.configuration.core.ConfigSection;
 
 public class TextAnimation extends Animation<Line> {
 

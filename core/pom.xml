@@ -44,21 +44,27 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.amnoah.sharkbyte-scoreboard</groupId>
-            <artifactId>core</artifactId>
-            <version>1.1.1</version>
-            <scope>compile</scope>
-        </dependency>
-        <dependency>
             <groupId>com.github.amnoah.sharkbyte-bossbar</groupId>
             <artifactId>core</artifactId>
             <version>1.1.0</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
+            <groupId>com.github.amnoah.sharkbyte-scoreboard</groupId>
+            <artifactId>core</artifactId>
+            <version>1.1.1</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>net.kyori</groupId>
             <artifactId>adventure-api</artifactId>
             <version>4.13.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.amnoah.sharkbyte-configuration</groupId>
+            <artifactId>core</artifactId>
+            <version>b184ffa2a8</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -115,8 +121,12 @@
                             <minimizeJar>true</minimizeJar>
                             <relocations>
                                 <relocation>
-                                    <pattern>sharkbyte</pattern>
-                                    <shadedPattern>better.scoreboard.shaded</shadedPattern>
+                                    <pattern>sharkbyte.scoreboard</pattern>
+                                    <shadedPattern>better.scoreboard.shaded.scoreboard</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>sharkbyte.bossbar</pattern>
+                                    <shadedPattern>better.scoreboard.shaded.bossbar</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>

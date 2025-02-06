@@ -2,7 +2,6 @@ package better.scoreboard.spigot;
 
 import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.placeholder.PlaceholderManager;
-import better.scoreboard.spigot.bridge.SpigotConfigSection;
 import better.scoreboard.spigot.bridge.SpigotPlaceholderProcessor;
 import better.scoreboard.spigot.bridge.SpigotPluginLogger;
 import better.scoreboard.spigot.bridge.SpigotUserData;
@@ -14,6 +13,8 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
+import sharkbyte.configuration.core.ConfigSection;
+import sharkbyte.configuration.spigot.SpigotConfigurationFile;
 
 public class BetterScoreboardSpigot extends JavaPlugin {
 
@@ -81,9 +82,9 @@ public class BetterScoreboardSpigot extends JavaPlugin {
     }
 
     public void load() {
-        saveDefaultConfig();
-        reloadConfig();
-        core.load(new SpigotConfigSection(getConfig()));
+        SpigotConfigurationFile file = new SpigotConfigurationFile(this, "config.yml", BetterScoreboard.class.getResourceAsStream("/config.yml"));
+        ConfigSection root = file.load();
+        core.load(root);
     }
 
     public boolean isPAPIInstalled() {

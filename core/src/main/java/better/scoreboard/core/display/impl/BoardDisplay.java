@@ -2,9 +2,9 @@ package better.scoreboard.core.display.impl;
 
 import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.animation.impl.TextAnimation;
-import better.scoreboard.core.bridge.ConfigSection;
 import better.scoreboard.core.display.Display;
 import better.scoreboard.core.display.DisplayManager;
+import sharkbyte.configuration.core.ConfigSection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,15 +49,10 @@ public class BoardDisplay extends Display {
     public static void load(BetterScoreboard plugin, ConfigSection config) {
         config = config.getConfigSection("scoreboards");
         if (config != null) {
-            for (String scoreboard : config.getChildren()) {
-                ConfigSection section = config.getConfigSection(scoreboard);
+            for (ConfigSection scoreboard : config.getChildren()) {
+                if (scoreboard == null) continue;
 
-                if (section == null) {
-                    plugin.getLogger().logWarning("Could not resolve scoreboard named \"" + scoreboard + "\" in config.yml!");
-                    continue;
-                }
-
-                DisplayManager.addDisplay(new BoardDisplay(plugin, section));
+                DisplayManager.addDisplay(new BoardDisplay(plugin, scoreboard));
             }
         }
     }

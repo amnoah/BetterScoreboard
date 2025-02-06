@@ -1,9 +1,9 @@
 package better.scoreboard.core.condition;
 
 import better.scoreboard.core.BetterScoreboard;
-import better.scoreboard.core.bridge.ConfigSection;
 import better.scoreboard.core.display.Line;
 import com.github.retrooper.packetevents.protocol.player.User;
+import sharkbyte.configuration.core.ConfigSection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public class Condition {
     private final Mode mode;
 
     public Condition(BetterScoreboard plugin, ConfigSection config) {
-        this.name = config.getName();
+        this.name = config.getKey();
 
         for (String string : config.getList(String.class, "criteria")) criteria.add(new Criteria(plugin, string));
 
@@ -49,15 +49,10 @@ public class Condition {
     public static void load(BetterScoreboard plugin, ConfigSection config) {
         config = config.getConfigSection("conditions");
         if (config != null) {
-            for (String condition : config.getChildren()) {
-                ConfigSection section = config.getConfigSection(condition);
+            for (ConfigSection section : config.getChildren()) {
+                if (section == null) continue;
 
-                if (section == null) {
-                    plugin.getLogger().logWarning("Could not resolve condition named \"" + condition + "\" in config.yml!");
-                    continue;
-                }
-
-                ConditionManager.addCondition(condition.toLowerCase(), new Condition(plugin, section));
+                ConditionManager.addCondition(section.getKey().toLowerCase(), new Condition(plugin, section));
             }
         }
     }

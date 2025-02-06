@@ -2,7 +2,6 @@ package better.scoreboard.sponge;
 
 import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.placeholder.PlaceholderManager;
-import better.scoreboard.sponge.bridge.SpongeConfigSection;
 import better.scoreboard.sponge.bridge.SpongePlaceholderProcessor;
 import better.scoreboard.sponge.bridge.SpongePluginLogger;
 import better.scoreboard.sponge.bridge.SpongeUserData;
@@ -23,18 +22,12 @@ import org.spongepowered.api.event.lifecycle.StoppingEngineEvent;
 import org.spongepowered.api.network.ServerConnectionState;
 import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.util.Ticks;
-import org.spongepowered.configurate.CommentedConfigurationNode;
-import org.spongepowered.configurate.yaml.NodeStyle;
-import org.spongepowered.configurate.yaml.YamlConfigurationLoader;
 import org.spongepowered.plugin.PluginContainer;
 import org.spongepowered.plugin.builtin.jvm.Plugin;
+import sharkbyte.configuration.configurate.ConfigurateConfigationFile;
+import sharkbyte.configuration.core.ConfigSection;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.Optional;
 
 @Plugin("betterscoreboard")
@@ -133,27 +126,8 @@ public class BetterScoreboardSponge {
     }
 
     public void load() {
-        try {
-            // This shouldn't be possible, but check anyway.
-            if (!Files.exists(configDirectory)) Files.createDirectories(configDirectory);
-
-            Path filePath = configDirectory.resolve("BetterScoreboardConfig.yml");
-            File file = filePath.toFile();
-
-            if (!file.exists()) {
-                InputStream inputStream = BetterScoreboard.class.getResourceAsStream("/config.yml");
-                assert (inputStream != null);
-                Files.copy(inputStream, filePath, StandardCopyOption.REPLACE_EXISTING);
-            }
-
-            YamlConfigurationLoader configLoader = YamlConfigurationLoader.builder().nodeStyle(NodeStyle.BLOCK).path(filePath).build();
-            CommentedConfigurationNode node = configLoader.load();
-
-            core.load(new SpongeConfigSection(node));
-        } catch (IOException e) {
-            logger.warn("Could not load BetterScoreboard's configuration.");
-            logger.warn("Please verify the legitimacy of your configuration file as the plugin may not work as intended.");
-            e.printStackTrace();
-        }
+        ConfigurateConfigationFile file = new ConfigurateConfigationFile("BetterScoreboardConfig.yml", configDirectory, BetterScoreboard.class.getResourceAsStream("/config.yml"));
+        ConfigSection root = file.load();
+        core.load(root);
     }
 }

@@ -1,6 +1,5 @@
 package better.scoreboard.core.displayuser;
 
-import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.protocol.player.User;
 
 import java.util.Collection;
