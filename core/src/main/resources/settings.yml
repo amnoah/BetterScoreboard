@@ -1,0 +1,3 @@
+# How should dates in the date placeholder be formatted?
+# Info on formatting: https://docs.oracle.com/javase/8/docs/api/java/text/SimpleDateFormat.html
+date-format: "MMM dd yyyy"

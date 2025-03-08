@@ -4,7 +4,7 @@ import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.placeholder.PlaceholderManager;
 import better.scoreboard.sponge.bridge.SpongePlaceholderProcessor;
 import better.scoreboard.sponge.bridge.SpongePluginLogger;
-import better.scoreboard.sponge.bridge.SpongeUserData;
+import better.scoreboard.sponge.bridge.SpongeData;
 import better.scoreboard.sponge.listener.PlayerUpdateListener;
 import better.scoreboard.sponge.listener.ReloadListener;
 import com.google.inject.Inject;
@@ -46,7 +46,7 @@ public class BetterScoreboardSponge {
     private final Metrics metrics;
 
     @Inject
-    @ConfigDir(sharedRoot = true)
+    @ConfigDir(sharedRoot = false)
     private Path configDirectory;
 
     @Inject
@@ -62,7 +62,7 @@ public class BetterScoreboardSponge {
         core = new BetterScoreboard(
                 new SpongePlaceholderProcessor(this),
                 new SpongePluginLogger(logger),
-                new SpongeUserData(game)
+                new SpongeData(game, configDirectory)
         );
 
         core.init();
@@ -111,9 +111,8 @@ public class BetterScoreboardSponge {
         Sponge.eventManager().registerListeners(pluginContainer, new PlayerUpdateListener());
         Sponge.eventManager().registerListeners(pluginContainer, new ReloadListener(this));
 
-        load();
+        core.load();
 
-        // General
         Task task = Task.builder().delay(Ticks.single()).interval(Ticks.single()).plugin(pluginContainer).execute(core::tick).build();
         Sponge.asyncScheduler().submit(task);
     }
@@ -121,13 +120,10 @@ public class BetterScoreboardSponge {
     @Listener
     public void onServerStop(final StoppingEngineEvent<Server> event) {
         core.disable();
-
         metrics.shutdown();
     }
 
-    public void load() {
-        ConfigurateConfigationFile file = new ConfigurateConfigationFile("BetterScoreboardConfig.yml", configDirectory, BetterScoreboard.class.getResourceAsStream("/config.yml"));
-        ConfigSection root = file.load();
-        core.load(root);
+    public BetterScoreboard getCore() {
+        return core;
     }
 }

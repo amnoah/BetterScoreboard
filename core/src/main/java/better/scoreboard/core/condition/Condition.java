@@ -46,14 +46,11 @@ public class Condition {
         return isTrue(user) ? trueLine.getText(user) : falseLine.getText(user);
     }
 
-    public static void load(BetterScoreboard plugin, ConfigSection config) {
-        config = config.getConfigSection("conditions");
-        if (config != null) {
-            for (ConfigSection section : config.getChildren()) {
-                if (section == null) continue;
-
-                ConditionManager.addCondition(section.getKey().toLowerCase(), new Condition(plugin, section));
-            }
+    public static void load(BetterScoreboard plugin) {
+        ConfigSection config = plugin.getData().getConfigurationFile("conditions.yml", BetterScoreboard.class.getResourceAsStream("/conditions.yml")).load();
+        for (ConfigSection section : config.getChildren()) {
+            if (section == null) continue;
+            ConditionManager.addCondition(section.getKey().toLowerCase(), new Condition(plugin, section));
         }
     }
 

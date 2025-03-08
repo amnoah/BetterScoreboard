@@ -2,7 +2,7 @@ package better.scoreboard.core;
 
 import better.scoreboard.core.bridge.PlaceholderProcessor;
 import better.scoreboard.core.bridge.PluginLogger;
-import better.scoreboard.core.bridge.UserData;
+import better.scoreboard.core.bridge.Data;
 import better.scoreboard.core.condition.Condition;
 import better.scoreboard.core.condition.ConditionManager;
 import better.scoreboard.core.display.Display;
@@ -21,11 +21,11 @@ public class BetterScoreboard {
 
     private final PlaceholderProcessor placeholders;
     private final PluginLogger logger;
-    private final UserData data;
+    private final Data data;
 
     private boolean enabled;
 
-    public BetterScoreboard(PlaceholderProcessor placeholders, PluginLogger logger, UserData data) {
+    public BetterScoreboard(PlaceholderProcessor placeholders, PluginLogger logger, Data data) {
         this.placeholders = placeholders;
         this.logger = logger;
         this.data = data;
@@ -94,24 +94,25 @@ public class BetterScoreboard {
         enabled = false;
     }
 
-    public void load(ConfigSection rootConfig) {
+    public void load() {
         if (!enabled) return;
 
         logger.logInfo("Beginning load!");
 
-        PlaceholderManager.setDateFormatter(rootConfig.getConfigSection("settings").getObject(String.class, "date-format", ""));
+        ConfigSection config = getData().getConfigurationFile("settings.yml", BetterScoreboard.class.getResourceAsStream("/settings.yml")).load();
+        PlaceholderManager.setDateFormatter(config.getObject(String.class, "date-format", ""));
 
         // Nuke and rebuild Conditions.
         logger.logInfo("Rebuilding Conditions from config...");
         ConditionManager.clear();
-        Condition.load(this, rootConfig);
+        Condition.load(this);
 
         // Nuke and rebuild Displays.
         logger.logInfo("Rebuilding Displays from config...");
         for (DisplayUser user : DisplayUserManager.getDisplayUsers()) user.clearDisplays();
         DisplayManager.clear();
-        BarDisplay.load(this, rootConfig);
-        BoardDisplay.load(this, rootConfig);
+        BarDisplay.load(this);
+        BoardDisplay.load(this);
 
         // Register users back to displays.
         logger.logInfo("Rebuilding DisplayUsers...");
@@ -129,7 +130,7 @@ public class BetterScoreboard {
      * Getters.
      */
 
-    public UserData getData() {
+    public Data getData() {
         return data;
     }
 

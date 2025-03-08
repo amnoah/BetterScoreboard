@@ -1,0 +1,25 @@
+health:
+  yes-result: '&a%health%'
+  no-result: '%condition:health2%'
+  criteria:
+    - "%health% >= 15"
+
+health2:
+  yes-result: '&e%health%'
+  no-result: '&c%health%'
+  criteria:
+    - "%health% >= 5"
+
+checknicked:
+  yes-result: 'You are not nicked.'
+  no-result: 'You are currently nicked as %username%.'
+  criteria:
+    - "%displayname% = %username%"
+
+checkworld:
+  mode: OR
+  yes-result: "&aYou are not in the overworld!"
+  no-result: "&aYou are in the overworld!"
+  criteria:
+    - "%world% $ nether"
+    - "%world% $ end"

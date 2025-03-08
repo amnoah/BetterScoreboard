@@ -64,7 +64,12 @@ public class Animation<E> {
 
         // Randomly select an index if that's chosen in the config.
         if (random) {
-            currentIndex = (int) (Math.random() * animation.size());
+            if (animation.size() <= 1) return;
+            int nextIndex = currentIndex;
+            while (currentIndex == nextIndex) {
+                nextIndex = (int) (Math.random() * animation.size());
+            }
+            currentIndex = nextIndex;
             return;
         }
 

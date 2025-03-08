@@ -15,6 +15,6 @@ public class ReloadListener implements Listener {
 
     @EventHandler
     public void onReload(ReloadEvent event) {
-        plugin.load();
+        plugin.getCore().load();
     }
 }

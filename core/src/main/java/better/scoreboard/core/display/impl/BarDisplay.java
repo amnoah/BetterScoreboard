@@ -40,14 +40,11 @@ public class BarDisplay extends Display {
         return text;
     }
 
-    public static void load(BetterScoreboard plugin, ConfigSection config) {
-        config = config.getConfigSection("boss-bars");
-        if (config != null) {
-            for (ConfigSection bossBar : config.getChildren()) {
-                if (bossBar == null) continue;
-
-                DisplayManager.addDisplay(new BarDisplay(plugin, bossBar));
-            }
+    public static void load(BetterScoreboard plugin) {
+        ConfigSection config = plugin.getData().getConfigurationFile("boss-bars.yml", BetterScoreboard.class.getResourceAsStream("/boss-bars.yml")).load();
+        for (ConfigSection bossBar : config.getChildren()) {
+            if (bossBar == null) continue;
+            DisplayManager.addDisplay(new BarDisplay(plugin, bossBar));
         }
     }
 

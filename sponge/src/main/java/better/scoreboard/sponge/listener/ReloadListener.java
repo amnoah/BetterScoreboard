@@ -14,6 +14,6 @@ public class ReloadListener {
 
     @Listener
     public void onReload(final RefreshGameEvent event) {
-        plugin.load();
+        plugin.getCore().load();
     }
 }

@@ -4,7 +4,7 @@ import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.placeholder.PlaceholderManager;
 import better.scoreboard.spigot.bridge.SpigotPlaceholderProcessor;
 import better.scoreboard.spigot.bridge.SpigotPluginLogger;
-import better.scoreboard.spigot.bridge.SpigotUserData;
+import better.scoreboard.spigot.bridge.SpigotData;
 import better.scoreboard.spigot.listener.PlayerUpdateListener;
 import better.scoreboard.spigot.listener.ReloadListener;
 import com.tcoded.folialib.FoliaLib;
@@ -35,7 +35,7 @@ public class BetterScoreboardSpigot extends JavaPlugin {
         core = new BetterScoreboard(
                 new SpigotPlaceholderProcessor(this),
                 new SpigotPluginLogger(this),
-                new SpigotUserData()
+                new SpigotData(this)
         );
 
         core.init();
@@ -67,7 +67,7 @@ public class BetterScoreboardSpigot extends JavaPlugin {
             getServer().getPluginManager().registerEvents(new ReloadListener(this), this);
         }
 
-        load();
+        core.load();
         task = foliaLib.getScheduler().runTimerAsync(() -> core.tick(), 0, 1);
     }
 
@@ -81,10 +81,8 @@ public class BetterScoreboardSpigot extends JavaPlugin {
         task = null;
     }
 
-    public void load() {
-        SpigotConfigurationFile file = new SpigotConfigurationFile(this, "config.yml", BetterScoreboard.class.getResourceAsStream("/config.yml"));
-        ConfigSection root = file.load();
-        core.load(root);
+    public BetterScoreboard getCore() {
+        return core;
     }
 
     public boolean isPAPIInstalled() {

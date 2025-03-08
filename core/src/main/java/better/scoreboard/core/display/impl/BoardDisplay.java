@@ -46,14 +46,12 @@ public class BoardDisplay extends Display {
         return title;
     }
 
-    public static void load(BetterScoreboard plugin, ConfigSection config) {
-        config = config.getConfigSection("scoreboards");
-        if (config != null) {
-            for (ConfigSection scoreboard : config.getChildren()) {
-                if (scoreboard == null) continue;
+    public static void load(BetterScoreboard plugin) {
+        ConfigSection config = plugin.getData().getConfigurationFile("scoreboards.yml", BetterScoreboard.class.getResourceAsStream("/scoreboards.yml")).load();
+        for (ConfigSection scoreboard : config.getChildren()) {
+            if (scoreboard == null) continue;
 
-                DisplayManager.addDisplay(new BoardDisplay(plugin, scoreboard));
-            }
+            DisplayManager.addDisplay(new BoardDisplay(plugin, scoreboard));
         }
     }
 
