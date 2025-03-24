@@ -1,5 +1,5 @@
 name: BetterScoreboard
-version: 2.2.0
+version: 2.2.1
 main: better.scoreboard.spigot.BetterScoreboardSpigot
 api-version: 1.13
 load: POSTWORLD

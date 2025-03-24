@@ -10,7 +10,7 @@
       "name": "BetterScoreboard",
       "entrypoint": "better.scoreboard.sponge.BetterScoreboardSponge",
       "description": "A packet based scoreboard and boss bar plugin.",
-      "version": "2.2.0",
+      "version": "2.2.1",
       "branding": {},
       "links": {},
       "contributors": [
