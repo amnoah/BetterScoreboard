@@ -11,10 +11,9 @@ import com.tcoded.folialib.FoliaLib;
 import com.tcoded.folialib.wrapper.task.WrappedTask;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
-import sharkbyte.configuration.core.ConfigSection;
-import sharkbyte.configuration.spigot.SpigotConfigurationFile;
 
 public class BetterScoreboardSpigot extends JavaPlugin {
 
@@ -22,7 +21,6 @@ public class BetterScoreboardSpigot extends JavaPlugin {
 
     // Core objects.
     private BetterScoreboard core;
-    private FoliaLib foliaLib;
 
     // Bukkit objects.
     private WrappedTask task;
@@ -40,20 +38,38 @@ public class BetterScoreboardSpigot extends JavaPlugin {
 
         core.init();
 
-        PlaceholderManager.registerPlaceholder("displayname", user -> Bukkit.getPlayer(user.getUUID()).getDisplayName());
-        PlaceholderManager.registerPlaceholder("gamemode", user -> Bukkit.getPlayer(user.getUUID()).getGameMode().name());
-        PlaceholderManager.registerPlaceholder("health", user -> String.valueOf(Bukkit.getPlayer(user.getUUID()).getHealth()));
+        PlaceholderManager.registerPlaceholder("displayname", user -> {
+            Player player = Bukkit.getPlayer(user.getUUID());
+            return player == null ? "" : player.getDisplayName();
+        });
+        PlaceholderManager.registerPlaceholder("gamemode", user -> {
+            Player player = Bukkit.getPlayer(user.getUUID());
+            return player == null ? "" : player.getGameMode().name();
+        });
+        PlaceholderManager.registerPlaceholder("health", user -> {
+            Player player = Bukkit.getPlayer(user.getUUID());
+            return player == null ? "" : String.valueOf(player.getHealth());
+        });
         PlaceholderManager.registerPlaceholder("maxplayers", user -> String.valueOf(Bukkit.getMaxPlayers()));
-        PlaceholderManager.registerPlaceholder("ping", user -> String.valueOf(Bukkit.getPlayer(user.getUUID()).getPing()));
+        PlaceholderManager.registerPlaceholder("ping", user -> {
+            Player player = Bukkit.getPlayer(user.getUUID());
+            return player == null ? "" : String.valueOf(player.getPing());
+        });
         PlaceholderManager.registerPlaceholder("players", user -> String.valueOf(Bukkit.getOnlinePlayers().size()));
-        PlaceholderManager.registerPlaceholder("world", user -> Bukkit.getPlayer(user.getUUID()).getWorld().getName());
-        PlaceholderManager.registerPlaceholder("worldplayers", user -> String.valueOf(Bukkit.getPlayer(user.getUUID()).getWorld().getPlayers().size()));
+        PlaceholderManager.registerPlaceholder("world", user -> {
+            Player player = Bukkit.getPlayer(user.getUUID());
+            return player == null ? "" : player.getWorld().getName();
+        });
+        PlaceholderManager.registerPlaceholder("worldplayers", user -> {
+            Player player = Bukkit.getPlayer(user.getUUID());
+            return player == null ? "" : String.valueOf(player.getWorld().getPlayers().size());
+        });
     }
 
     @Override
     public void onEnable() {
         core.enable();
-        foliaLib = new FoliaLib(this);
+        FoliaLib foliaLib = new FoliaLib(this);
 
         // Begin bStats.
         metrics = new Metrics(this, B_STATS_ID);
