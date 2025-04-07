@@ -1,6 +1,5 @@
 package better.scoreboard.spigot.bridge;
 
-import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.bridge.Data;
 import better.scoreboard.spigot.BetterScoreboardSpigot;
 import com.github.retrooper.packetevents.protocol.player.User;

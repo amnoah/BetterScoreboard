@@ -1,6 +1,5 @@
 package better.scoreboard.sponge.bridge;
 
-import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.bridge.Data;
 import com.github.retrooper.packetevents.protocol.player.User;
 import org.spongepowered.api.Game;

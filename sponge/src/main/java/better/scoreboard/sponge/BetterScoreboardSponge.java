@@ -2,9 +2,9 @@ package better.scoreboard.sponge;
 
 import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.placeholder.PlaceholderManager;
+import better.scoreboard.sponge.bridge.SpongeData;
 import better.scoreboard.sponge.bridge.SpongePlaceholderProcessor;
 import better.scoreboard.sponge.bridge.SpongePluginLogger;
-import better.scoreboard.sponge.bridge.SpongeData;
 import better.scoreboard.sponge.listener.PlayerUpdateListener;
 import better.scoreboard.sponge.listener.ReloadListener;
 import com.google.inject.Inject;
@@ -24,8 +24,6 @@ import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.util.Ticks;
 import org.spongepowered.plugin.PluginContainer;
 import org.spongepowered.plugin.builtin.jvm.Plugin;
-import sharkbyte.configuration.configurate.ConfigurateConfigationFile;
-import sharkbyte.configuration.core.ConfigSection;
 
 import java.nio.file.Path;
 import java.util.Optional;
@@ -110,8 +108,6 @@ public class BetterScoreboardSponge {
         // Register all listeners.
         Sponge.eventManager().registerListeners(pluginContainer, new PlayerUpdateListener());
         Sponge.eventManager().registerListeners(pluginContainer, new ReloadListener(this));
-
-        core.load();
 
         Task task = Task.builder().delay(Ticks.single()).interval(Ticks.single()).plugin(pluginContainer).execute(core::tick).build();
         Sponge.asyncScheduler().submit(task);

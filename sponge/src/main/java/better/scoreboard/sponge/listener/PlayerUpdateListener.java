@@ -5,8 +5,6 @@ import com.github.retrooper.packetevents.PacketEvents;
 import org.spongepowered.api.entity.living.player.server.ServerPlayer;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.event.entity.ChangeEntityWorldEvent;
-import org.spongepowered.api.event.filter.Getter;
-import org.spongepowered.api.event.network.ServerSideConnectionEvent;
 
 public class PlayerUpdateListener {
 

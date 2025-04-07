@@ -1,8 +1,8 @@
 package better.scoreboard.core;
 
+import better.scoreboard.core.bridge.Data;
 import better.scoreboard.core.bridge.PlaceholderProcessor;
 import better.scoreboard.core.bridge.PluginLogger;
-import better.scoreboard.core.bridge.Data;
 import better.scoreboard.core.condition.Condition;
 import better.scoreboard.core.condition.ConditionManager;
 import better.scoreboard.core.display.Display;
@@ -88,6 +88,7 @@ public class BetterScoreboard {
     public void enable() {
         if (!enabled) return;
         PacketEvents.getAPI().getEventManager().registerListener(new JoinLeaveListener());
+        load();
     }
 
     public void disable() {

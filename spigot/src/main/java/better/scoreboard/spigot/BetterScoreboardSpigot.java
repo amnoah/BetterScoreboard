@@ -2,9 +2,9 @@ package better.scoreboard.spigot;
 
 import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.placeholder.PlaceholderManager;
+import better.scoreboard.spigot.bridge.SpigotData;
 import better.scoreboard.spigot.bridge.SpigotPlaceholderProcessor;
 import better.scoreboard.spigot.bridge.SpigotPluginLogger;
-import better.scoreboard.spigot.bridge.SpigotData;
 import better.scoreboard.spigot.listener.PlayerUpdateListener;
 import better.scoreboard.spigot.listener.ReloadListener;
 import com.tcoded.folialib.FoliaLib;
@@ -83,7 +83,6 @@ public class BetterScoreboardSpigot extends JavaPlugin {
             getServer().getPluginManager().registerEvents(new ReloadListener(this), this);
         }
 
-        core.load();
         task = foliaLib.getScheduler().runTimerAsync(() -> core.tick(), 0, 1);
     }
 
