@@ -1,13 +1,13 @@
-package better.scoreboard.spigot.bridge;
+package better.scoreboard.paper.bridge;
 
 import better.scoreboard.core.bridge.PluginLogger;
-import better.scoreboard.spigot.BetterScoreboardSpigot;
+import better.scoreboard.paper.BetterScoreboardPaper;
 
-public class SpigotPluginLogger implements PluginLogger {
+public class PaperPluginLogger implements PluginLogger {
 
-    private final BetterScoreboardSpigot plugin;
+    private final BetterScoreboardPaper plugin;
 
-    public SpigotPluginLogger(BetterScoreboardSpigot plugin) {
+    public PaperPluginLogger(BetterScoreboardPaper plugin) {
         this.plugin = plugin;
     }
 
@@ -20,4 +20,5 @@ public class SpigotPluginLogger implements PluginLogger {
     public void logWarning(String message) {
         plugin.getLogger().warning(message);
     }
+
 }

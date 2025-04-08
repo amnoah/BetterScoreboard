@@ -1,20 +1,21 @@
-package better.scoreboard.spigot;
+package better.scoreboard.paper;
 
 import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.placeholder.PlaceholderManager;
-import better.scoreboard.spigot.bridge.SpigotData;
-import better.scoreboard.spigot.bridge.SpigotPlaceholderProcessor;
-import better.scoreboard.spigot.bridge.SpigotPluginLogger;
-import better.scoreboard.spigot.listener.PlayerUpdateListener;
-import better.scoreboard.spigot.listener.ReloadListener;
+import better.scoreboard.paper.bridge.PaperData;
+import better.scoreboard.paper.bridge.PaperPlaceholderProcessor;
+import better.scoreboard.paper.bridge.PaperPluginLogger;
+import better.scoreboard.paper.listener.PlayerUpdateListener;
+import better.scoreboard.paper.listener.ReloadListener;
+import com.tcoded.folialib.FoliaLib;
+import com.tcoded.folialib.wrapper.task.WrappedTask;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitTask;
 
-public class BetterScoreboardSpigot extends JavaPlugin {
+public class BetterScoreboardPaper extends JavaPlugin {
 
     private static final int B_STATS_ID = 22862;
 
@@ -22,7 +23,7 @@ public class BetterScoreboardSpigot extends JavaPlugin {
     private BetterScoreboard core;
 
     // Bukkit objects.
-    private BukkitTask task;
+    private WrappedTask task;
     private Metrics metrics;
 
     private boolean papiInstalled;
@@ -30,9 +31,9 @@ public class BetterScoreboardSpigot extends JavaPlugin {
     @Override
     public void onLoad() {
         core = new BetterScoreboard(
-                new SpigotPlaceholderProcessor(this),
-                new SpigotPluginLogger(this),
-                new SpigotData(this)
+                new PaperPlaceholderProcessor(this),
+                new PaperPluginLogger(this),
+                new PaperData(this)
         );
 
         core.init();
@@ -68,6 +69,7 @@ public class BetterScoreboardSpigot extends JavaPlugin {
     @Override
     public void onEnable() {
         core.enable();
+        FoliaLib foliaLib = new FoliaLib(this);
 
         // Begin bStats.
         metrics = new Metrics(this, B_STATS_ID);
@@ -81,7 +83,7 @@ public class BetterScoreboardSpigot extends JavaPlugin {
             getServer().getPluginManager().registerEvents(new ReloadListener(this), this);
         }
 
-        Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> core.tick(), 0, 1);
+        task = foliaLib.getScheduler().runTimerAsync(() -> core.tick(), 0, 1);
     }
 
     @Override

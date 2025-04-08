@@ -1,8 +1,9 @@
 name: BetterScoreboard
 version: 2.2.2
-main: better.scoreboard.spigot.BetterScoreboardSpigot
+main: better.scoreboard.paper.BetterScoreboardPaper
 api-version: 1.13
 load: POSTWORLD
+folia-supported: true
 softdepend:
   - BetterReload
   - PlaceHolderAPI

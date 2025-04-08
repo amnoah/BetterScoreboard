@@ -7,12 +7,13 @@
     <groupId>better.scoreboard</groupId>
     <artifactId>parent</artifactId>
     <packaging>pom</packaging>
-    <version>2.2.1</version>
+    <version>2.2.2</version>
 
     <modules>
         <module>core</module>
         <module>spigot</module>
         <module>sponge</module>
+        <module>paper</module>
     </modules>
 
     <properties>
