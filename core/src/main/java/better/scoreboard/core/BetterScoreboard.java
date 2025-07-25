@@ -12,6 +12,7 @@ import better.scoreboard.core.display.impl.BoardDisplay;
 import better.scoreboard.core.displayuser.DisplayUser;
 import better.scoreboard.core.displayuser.DisplayUserManager;
 import better.scoreboard.core.listener.JoinLeaveListener;
+import better.scoreboard.core.listener.StateChangeListener;
 import better.scoreboard.core.placeholder.PlaceholderManager;
 import com.github.retrooper.packetevents.PacketEvents;
 import com.github.retrooper.packetevents.manager.server.ServerVersion;
@@ -88,6 +89,7 @@ public class BetterScoreboard {
     public void enable() {
         if (!enabled) return;
         PacketEvents.getAPI().getEventManager().registerListener(new JoinLeaveListener());
+        PacketEvents.getAPI().getEventManager().registerListener(new StateChangeListener());
         load();
     }
 

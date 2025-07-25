@@ -7,6 +7,7 @@ boss bar support, with things like action bars and tab modification being planne
 This project and its collaborators use the following regularly and are thankful for their maintenance:
 - [PacketEvents](https://github.com/retrooper/packetevents)
 - [sharkbyte-bossbar](https://github.com/amnoah/sharkbyte-bossbar)
+- [sharkbyte-configuration](https://github.com/amnoah/sharkbyte-configuration)
 - [sharkbyte-scoreboard](https://github.com/amnoah/sharkbyte-scoreboard).
 
 ## Requirements
