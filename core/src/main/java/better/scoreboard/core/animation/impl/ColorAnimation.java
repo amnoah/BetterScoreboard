@@ -2,13 +2,13 @@ package better.scoreboard.core.animation.impl;
 
 import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.animation.Animation;
+import better.scoreboard.core.configuration.ConfigurationSection;
 import net.kyori.adventure.bossbar.BossBar;
 import org.jetbrains.annotations.Nullable;
-import sharkbyte.configuration.core.ConfigSection;
 
 public class ColorAnimation extends Animation<BossBar.Color> {
 
-    public ColorAnimation(BetterScoreboard plugin, @Nullable ConfigSection config) {
+    public ColorAnimation(BetterScoreboard plugin, @Nullable ConfigurationSection config) {
         super(plugin, config);
 
         if (config == null) {

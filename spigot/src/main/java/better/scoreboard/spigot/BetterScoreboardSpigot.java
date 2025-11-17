@@ -7,12 +7,17 @@ import better.scoreboard.spigot.bridge.SpigotPlaceholderProcessor;
 import better.scoreboard.spigot.bridge.SpigotPluginLogger;
 import better.scoreboard.spigot.listener.PlayerUpdateListener;
 import better.scoreboard.spigot.listener.ReloadListener;
+import com.github.retrooper.packetevents.PacketEvents;
+import com.github.retrooper.packetevents.manager.server.ServerVersion;
+import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
+import sharkbyte.bossbar.core.legacy.LegacyBossBar;
+import sharkbyte.bossbar.core.legacy.LegacyHandler;
 
 public class BetterScoreboardSpigot extends JavaPlugin {
 
@@ -32,7 +37,8 @@ public class BetterScoreboardSpigot extends JavaPlugin {
         core = new BetterScoreboard(
                 new SpigotPlaceholderProcessor(this),
                 new SpigotPluginLogger(this),
-                new SpigotData(this)
+                new SpigotData(this),
+                getDataFolder().toPath()
         );
 
         core.init();
@@ -82,6 +88,8 @@ public class BetterScoreboardSpigot extends JavaPlugin {
         }
 
         Bukkit.getScheduler().runTaskTimerAsynchronously(this, () -> core.tick(), 0, 1);
+
+        LegacyHandler.setEntityIDProvider(SpigotReflectionUtil::generateEntityId);
     }
 
     @Override

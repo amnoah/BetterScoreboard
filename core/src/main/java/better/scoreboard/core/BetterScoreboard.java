@@ -5,6 +5,8 @@ import better.scoreboard.core.bridge.PlaceholderProcessor;
 import better.scoreboard.core.bridge.PluginLogger;
 import better.scoreboard.core.condition.Condition;
 import better.scoreboard.core.condition.ConditionManager;
+import better.scoreboard.core.configuration.ConfigurationFile;
+import better.scoreboard.core.configuration.ConfigurationSection;
 import better.scoreboard.core.display.Display;
 import better.scoreboard.core.display.DisplayManager;
 import better.scoreboard.core.display.impl.BarDisplay;
@@ -14,33 +16,26 @@ import better.scoreboard.core.displayuser.DisplayUserManager;
 import better.scoreboard.core.listener.JoinLeaveListener;
 import better.scoreboard.core.placeholder.PlaceholderManager;
 import com.github.retrooper.packetevents.PacketEvents;
-import com.github.retrooper.packetevents.manager.server.ServerVersion;
-import sharkbyte.configuration.core.ConfigSection;
+
+import java.nio.file.Path;
 
 public class BetterScoreboard {
+
+    private static ConfigurationFile settings = null;
 
     private final PlaceholderProcessor placeholders;
     private final PluginLogger logger;
     private final Data data;
+    private final Path path;
 
     private boolean enabled;
 
-    public BetterScoreboard(PlaceholderProcessor placeholders, PluginLogger logger, Data data) {
+    public BetterScoreboard(PlaceholderProcessor placeholders, PluginLogger logger, Data data, Path path) {
         this.placeholders = placeholders;
         this.logger = logger;
         this.data = data;
+        this.path = path;
         this.enabled = true;
-
-        /*
-         * We only support 1.20.3+.
-         * We could support below with no code changes, but I don't feel like dealing with the limitations of
-         * sharkbyte-scoreboard in older versions.
-         */
-        if (PacketEvents.getAPI().getServerManager().getVersion().isOlderThan(ServerVersion.V_1_20_3)) {
-            logger.logWarning("You are running on an unsupported version of Minecraft!");
-            logger.logWarning("Please update to 1.20.3 or above!");
-            enabled = false;
-        }
     }
 
     /*
@@ -98,9 +93,13 @@ public class BetterScoreboard {
     public void load() {
         if (!enabled) return;
 
+        if (settings == null) {
+            settings = new ConfigurationFile("settings.yml", path, BetterScoreboard.class.getResourceAsStream("/settings.yml"));
+        }
+
         logger.logInfo("Beginning load!");
 
-        ConfigSection config = getData().getConfigurationFile("settings.yml", BetterScoreboard.class.getResourceAsStream("/settings.yml")).load();
+        ConfigurationSection config = settings.load();
         PlaceholderManager.setDateFormatter(config.getObject(String.class, "date-format", ""));
 
         // Nuke and rebuild Conditions.
@@ -141,5 +140,9 @@ public class BetterScoreboard {
 
     public PlaceholderProcessor getPlaceholders() {
         return placeholders;
+    }
+
+    public Path getPath() {
+        return path;
     }
 }

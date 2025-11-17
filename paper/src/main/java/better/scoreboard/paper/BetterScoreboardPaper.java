@@ -9,11 +9,13 @@ import better.scoreboard.paper.listener.PlayerUpdateListener;
 import better.scoreboard.paper.listener.ReloadListener;
 import com.tcoded.folialib.FoliaLib;
 import com.tcoded.folialib.wrapper.task.WrappedTask;
+import io.github.retrooper.packetevents.util.SpigotReflectionUtil;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.plugin.java.JavaPlugin;
+import sharkbyte.bossbar.core.legacy.LegacyHandler;
 
 public class BetterScoreboardPaper extends JavaPlugin {
 
@@ -33,7 +35,8 @@ public class BetterScoreboardPaper extends JavaPlugin {
         core = new BetterScoreboard(
                 new PaperPlaceholderProcessor(this),
                 new PaperPluginLogger(this),
-                new PaperData(this)
+                new PaperData(this),
+                getDataPath()
         );
 
         core.init();
@@ -84,6 +87,8 @@ public class BetterScoreboardPaper extends JavaPlugin {
         }
 
         task = foliaLib.getScheduler().runTimerAsync(() -> core.tick(), 0, 1);
+
+        LegacyHandler.setEntityIDProvider(SpigotReflectionUtil::generateEntityId);
     }
 
     @Override

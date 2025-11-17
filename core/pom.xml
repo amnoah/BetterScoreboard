@@ -62,9 +62,9 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.github.amnoah.sharkbyte-configuration</groupId>
-            <artifactId>core</artifactId>
-            <version>b184ffa2a8</version>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>2.4</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

@@ -14,16 +14,9 @@ import java.util.Optional;
 public class SpongeData implements Data {
 
     private final Game game;
-    private final Path configDir;
 
-    public SpongeData(Game game, Path configDir) {
+    public SpongeData(Game game) {
         this.game = game;
-        this.configDir = configDir;
-    }
-
-    @Override
-    public ConfigurationFile getConfigurationFile(String name, InputStream defaultFile) {
-        return new ConfigurateConfigationFile(name, configDir, defaultFile);
     }
 
     @Override

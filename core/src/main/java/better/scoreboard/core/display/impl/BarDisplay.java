@@ -5,18 +5,21 @@ import better.scoreboard.core.animation.impl.ColorAnimation;
 import better.scoreboard.core.animation.impl.DivisionAnimation;
 import better.scoreboard.core.animation.impl.HealthAnimation;
 import better.scoreboard.core.animation.impl.TextAnimation;
+import better.scoreboard.core.configuration.ConfigurationFile;
+import better.scoreboard.core.configuration.ConfigurationSection;
 import better.scoreboard.core.display.Display;
 import better.scoreboard.core.display.DisplayManager;
-import sharkbyte.configuration.core.ConfigSection;
 
 public class BarDisplay extends Display {
+
+    private static ConfigurationFile bossBars = null;
 
     private final ColorAnimation color;
     private final DivisionAnimation division;
     private final HealthAnimation health;
     private final TextAnimation text;
 
-    public BarDisplay(BetterScoreboard plugin, ConfigSection config) {
+    public BarDisplay(BetterScoreboard plugin, ConfigurationSection config) {
         super(plugin, config);
         color = new ColorAnimation(plugin, config.getConfigSection("color"));
         division = new DivisionAnimation(plugin, config.getConfigSection("division"));
@@ -41,8 +44,12 @@ public class BarDisplay extends Display {
     }
 
     public static void load(BetterScoreboard plugin) {
-        ConfigSection config = plugin.getData().getConfigurationFile("boss-bars.yml", BetterScoreboard.class.getResourceAsStream("/boss-bars.yml")).load();
-        for (ConfigSection bossBar : config.getChildren()) {
+        if (bossBars == null) {
+            bossBars = new ConfigurationFile("boss-bars.yml", plugin.getPath(), BetterScoreboard.class.getResourceAsStream("/boss-bars.yml"));
+        }
+
+        ConfigurationSection config = bossBars.load();
+        for (ConfigurationSection bossBar : config.getChildren()) {
             if (bossBar == null) continue;
             DisplayManager.addDisplay(new BarDisplay(plugin, bossBar));
         }

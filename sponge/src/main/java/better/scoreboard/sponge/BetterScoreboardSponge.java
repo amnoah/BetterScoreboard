@@ -7,6 +7,8 @@ import better.scoreboard.sponge.bridge.SpongePlaceholderProcessor;
 import better.scoreboard.sponge.bridge.SpongePluginLogger;
 import better.scoreboard.sponge.listener.PlayerUpdateListener;
 import better.scoreboard.sponge.listener.ReloadListener;
+import com.github.retrooper.packetevents.PacketEvents;
+import com.github.retrooper.packetevents.manager.server.ServerVersion;
 import com.google.inject.Inject;
 import org.apache.logging.log4j.Logger;
 import org.bstats.sponge.Metrics;
@@ -24,6 +26,7 @@ import org.spongepowered.api.scheduler.Task;
 import org.spongepowered.api.util.Ticks;
 import org.spongepowered.plugin.PluginContainer;
 import org.spongepowered.plugin.builtin.jvm.Plugin;
+import sharkbyte.bossbar.core.legacy.LegacyHandler;
 
 import java.nio.file.Path;
 import java.util.Optional;
@@ -60,7 +63,8 @@ public class BetterScoreboardSponge {
         core = new BetterScoreboard(
                 new SpongePlaceholderProcessor(this),
                 new SpongePluginLogger(logger),
-                new SpongeData(game, configDirectory)
+                new SpongeData(game),
+                configDirectory
         );
 
         core.init();

@@ -1,3 +1,14 @@
+# A few notes before you start modifying this:
+#
+# 1.8 - 1.12.2 has a maximum title character count of 32.
+# 1.13+ has an unlimited title character count.
+#
+# 1.8 - 1.12.2 has a maximum line character count of 58.
+# 1.13+ has an unlimited line character count.
+#
+# 1.8 - 1.20.2 only uses the left-aligned text.
+# 1.20.3+ uses both left-aligned text and right-aligned.
+
 default:
   title:
     random: false

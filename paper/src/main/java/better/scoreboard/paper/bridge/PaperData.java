@@ -19,11 +19,6 @@ public class PaperData implements Data {
     }
 
     @Override
-    public ConfigurationFile getConfigurationFile(String name, InputStream defaultFile) {
-        return new SpigotConfigurationFile(plugin, name, defaultFile);
-    }
-
-    @Override
     public boolean hasPermission(User user, String... permission) {
         Player player = Bukkit.getPlayer(user.getUUID());
         if (player == null) return false;

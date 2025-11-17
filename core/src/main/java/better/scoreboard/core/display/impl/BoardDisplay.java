@@ -2,19 +2,22 @@ package better.scoreboard.core.display.impl;
 
 import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.animation.impl.TextAnimation;
+import better.scoreboard.core.configuration.ConfigurationFile;
+import better.scoreboard.core.configuration.ConfigurationSection;
 import better.scoreboard.core.display.Display;
 import better.scoreboard.core.display.DisplayManager;
-import sharkbyte.configuration.core.ConfigSection;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BoardDisplay extends Display {
 
+    private static ConfigurationFile scoreboards = null;
+
     private final List<TextAnimation> leftAligned, rightAligned;
     private final TextAnimation title;
 
-    public BoardDisplay(BetterScoreboard plugin, ConfigSection config) {
+    public BoardDisplay(BetterScoreboard plugin, ConfigurationSection config) {
         super(plugin, config);
 
         leftAligned = new ArrayList<>();
@@ -23,7 +26,7 @@ public class BoardDisplay extends Display {
         title = new TextAnimation(plugin, config.getConfigSection("title"));
 
         for (int i = 1; i <= 15; i++) {
-            ConfigSection section = config.getConfigSection("line" + i);
+            ConfigurationSection section = config.getConfigSection("line" + i);
             if (section == null) break;
             leftAligned.add(new TextAnimation(plugin, section.getConfigSection("left-aligned")));
             rightAligned.add(new TextAnimation(plugin, section.getConfigSection("right-aligned")));
@@ -47,8 +50,12 @@ public class BoardDisplay extends Display {
     }
 
     public static void load(BetterScoreboard plugin) {
-        ConfigSection config = plugin.getData().getConfigurationFile("scoreboards.yml", BetterScoreboard.class.getResourceAsStream("/scoreboards.yml")).load();
-        for (ConfigSection scoreboard : config.getChildren()) {
+        if (scoreboards == null) {
+            scoreboards = new ConfigurationFile("scoreboards.yml", plugin.getPath(), BetterScoreboard.class.getResourceAsStream("/scoreboards.yml"));
+        }
+
+        ConfigurationSection config = scoreboards.load();
+        for (ConfigurationSection scoreboard : config.getChildren()) {
             if (scoreboard == null) continue;
 
             DisplayManager.addDisplay(new BoardDisplay(plugin, scoreboard));

@@ -1,14 +1,17 @@
 package better.scoreboard.core.condition;
 
 import better.scoreboard.core.BetterScoreboard;
+import better.scoreboard.core.configuration.ConfigurationFile;
+import better.scoreboard.core.configuration.ConfigurationSection;
 import better.scoreboard.core.display.Line;
 import com.github.retrooper.packetevents.protocol.player.User;
-import sharkbyte.configuration.core.ConfigSection;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Condition {
+
+    private static ConfigurationFile conditions = null;
 
     private enum Mode {
         AND,
@@ -20,7 +23,7 @@ public class Condition {
     private final Line falseLine, trueLine;
     private final Mode mode;
 
-    public Condition(BetterScoreboard plugin, ConfigSection config) {
+    public Condition(BetterScoreboard plugin, ConfigurationSection config) {
         this.name = config.getKey();
 
         for (String string : config.getList(String.class, "criteria")) criteria.add(new Criteria(plugin, string));
@@ -47,8 +50,12 @@ public class Condition {
     }
 
     public static void load(BetterScoreboard plugin) {
-        ConfigSection config = plugin.getData().getConfigurationFile("conditions.yml", BetterScoreboard.class.getResourceAsStream("/conditions.yml")).load();
-        for (ConfigSection section : config.getChildren()) {
+        if (conditions == null) {
+            conditions = new ConfigurationFile("conditions.yml", plugin.getPath(), BetterScoreboard.class.getResourceAsStream("/conditions.yml"));
+        }
+
+        ConfigurationSection config = conditions.load();
+        for (ConfigurationSection section : config.getChildren()) {
             if (section == null) continue;
             ConditionManager.addCondition(section.getKey().toLowerCase(), new Condition(plugin, section));
         }

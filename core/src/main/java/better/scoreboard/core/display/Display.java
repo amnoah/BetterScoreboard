@@ -2,15 +2,15 @@ package better.scoreboard.core.display;
 
 import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.condition.Condition;
+import better.scoreboard.core.configuration.ConfigurationSection;
 import com.github.retrooper.packetevents.protocol.player.User;
-import sharkbyte.configuration.core.ConfigSection;
 
 public abstract class Display {
 
     protected final Condition condition;
     protected final int weight;
 
-    public Display(BetterScoreboard plugin, ConfigSection config) {
+    public Display(BetterScoreboard plugin, ConfigurationSection config) {
         weight = config.getObject(Integer.class, "weight", 1);
         if (config.hasNode("criteria")) condition = new Condition(plugin, config);
         else condition = null;

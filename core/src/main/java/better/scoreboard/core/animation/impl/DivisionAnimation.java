@@ -2,13 +2,13 @@ package better.scoreboard.core.animation.impl;
 
 import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.animation.Animation;
+import better.scoreboard.core.configuration.ConfigurationSection;
 import net.kyori.adventure.bossbar.BossBar;
 import org.jetbrains.annotations.Nullable;
-import sharkbyte.configuration.core.ConfigSection;
 
 public class DivisionAnimation  extends Animation<BossBar.Overlay> {
 
-    public DivisionAnimation(BetterScoreboard plugin, @Nullable ConfigSection config) {
+    public DivisionAnimation(BetterScoreboard plugin, @Nullable ConfigurationSection config) {
         super(plugin, config);
 
         if (config == null) {

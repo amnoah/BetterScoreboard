@@ -2,9 +2,9 @@ package better.scoreboard.core.animation;
 
 import better.scoreboard.core.BetterScoreboard;
 import better.scoreboard.core.condition.Condition;
+import better.scoreboard.core.configuration.ConfigurationSection;
 import com.github.retrooper.packetevents.protocol.player.User;
 import org.jetbrains.annotations.Nullable;
-import sharkbyte.configuration.core.ConfigSection;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class Animation<E> {
     protected int currentIndex, currentTick;
     protected boolean updateTick;
 
-    public Animation(BetterScoreboard plugin, @Nullable ConfigSection config) {
+    public Animation(BetterScoreboard plugin, @Nullable ConfigurationSection config) {
         currentIndex = currentTick = 0;
 
         if (config == null) {

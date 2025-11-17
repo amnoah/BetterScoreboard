@@ -8,11 +8,10 @@ import sharkbyte.scoreboard.core.SBScoreboard;
 
 public class BoardProcessor extends Processor<BoardDisplay> {
 
-    private final SBScoreboard scoreboard;
+    private SBScoreboard scoreboard;
 
     public BoardProcessor(User user) {
         super(BoardDisplay.class, user);
-        scoreboard = SBScoreboard.createScoreboard(user, "BetterScoreboard");
     }
 
     @Override
@@ -21,49 +20,55 @@ public class BoardProcessor extends Processor<BoardDisplay> {
             if (super.display == null) return;
             super.display = null;
             scoreboard.destroy();
+            user.sendMessage("Destroying scoreboard");
             return;
         }
 
-        if (super.display == null) {
-            scoreboard.create();
-        }
+        scoreboard = SBScoreboard.createScoreboard(user, "bsimpltest", display.getTitle().getAnimation().getText(user));
+        scoreboard.create();
 
         super.display = display;
-        scoreboard.setTitle(super.display.getTitle().getAnimation().getText(user));
         // Set active lines.
-        for (int i = 0; i < super.display.getLineCount(); i++) {
+        for (int i = 0; i < display.getLineCount(); i++) {
+            if (display.getLeftText(i).isConditionalTrue(user))
+                user.sendMessage("Setting line " + i + " to " + display.getLeftText(i).getAnimation().getText(user));
             scoreboard.setLeftAlignedText(i,
                     super.display.getLeftText(i).isConditionalTrue(user) ?
-                            super.display.getLeftText(i).getAnimation().getText(user) :
+                            display.getLeftText(i).getAnimation().getText(user) :
                             null
             );
             scoreboard.setRightAlignedText(i,
                     super.display.getRightText(i).isConditionalTrue(user) ?
-                            super.display.getRightText(i).getAnimation().getText(user) :
+                            display.getRightText(i).getAnimation().getText(user) :
                             null
             );
         }
         // Remove unused lines.
-        for (int i = super.display.getLineCount(); i < 15; i++) {
+        for (int i = display.getLineCount(); i < 15; i++) {
             scoreboard.setLeftAlignedText(i, null);
             scoreboard.setRightAlignedText(i, null);
         }
 
-        scoreboard.display();
+        scoreboard.update();
     }
 
     @Override
     public void tick() {
         if (display == null) return;
 
-        if (display.getTitle().isUpdateTick())
+        if (display.getTitle().isUpdateTick()) {
             scoreboard.setTitle(display.getTitle().getAnimation().getText(user));
+            user.sendMessage("title: " + display.getTitle().getAnimation().getText(user));
+        }
         for (int i = 0; i < display.getLineCount(); i++) {
             if (display.getLeftText(i).isUpdateTick()) {
-                if (!display.getLeftText(i).isConditionalTrue(user))
+                if (!display.getLeftText(i).isConditionalTrue(user)) {
                     scoreboard.setLeftAlignedText(i, null);
-                else
+                    user.sendMessage("line " + i + " null");
+                } else {
                     scoreboard.setLeftAlignedText(i, display.getLeftText(i).getAnimation().getText(user));
+                    user.sendMessage("line " + i + " " + display.getLeftText(i).getAnimation().getText(user));
+                }
             }
 
             if (display.getRightText(i).isUpdateTick()) {
