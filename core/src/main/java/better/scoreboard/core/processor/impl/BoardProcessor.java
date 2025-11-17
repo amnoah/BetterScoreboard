@@ -4,15 +4,15 @@ import better.scoreboard.core.display.impl.BoardDisplay;
 import better.scoreboard.core.processor.Processor;
 import com.github.retrooper.packetevents.protocol.player.User;
 import org.jetbrains.annotations.Nullable;
-import sharkbyte.scoreboard.core.Scoreboard;
+import sharkbyte.scoreboard.core.SBScoreboard;
 
 public class BoardProcessor extends Processor<BoardDisplay> {
 
-    private final Scoreboard scoreboard;
+    private final SBScoreboard scoreboard;
 
     public BoardProcessor(User user) {
         super(BoardDisplay.class, user);
-        scoreboard = new Scoreboard(user, "BetterScoreboard");
+        scoreboard = SBScoreboard.createScoreboard(user, "BetterScoreboard");
     }
 
     @Override
