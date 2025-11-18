@@ -16,6 +16,11 @@ import better.scoreboard.core.displayuser.DisplayUserManager;
 import better.scoreboard.core.listener.JoinLeaveListener;
 import better.scoreboard.core.placeholder.PlaceholderManager;
 import com.github.retrooper.packetevents.PacketEvents;
+import com.github.retrooper.packetevents.event.SimplePacketListenerAbstract;
+import com.github.retrooper.packetevents.event.simple.PacketPlayReceiveEvent;
+import com.github.retrooper.packetevents.event.simple.PacketPlaySendEvent;
+import com.github.retrooper.packetevents.protocol.packettype.PacketType;
+import sharkbyte.scoreboard.core.SBScoreboard;
 
 import java.nio.file.Path;
 
@@ -82,6 +87,7 @@ public class BetterScoreboard {
 
     public void enable() {
         if (!enabled) return;
+
         PacketEvents.getAPI().getEventManager().registerListener(new JoinLeaveListener());
         load();
     }

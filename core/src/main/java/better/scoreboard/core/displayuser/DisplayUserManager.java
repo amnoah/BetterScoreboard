@@ -36,6 +36,7 @@ public class DisplayUserManager {
      * Add a DisplayUser associated with the given player object.
      */
     public static void addDisplayUser(User user) {
+        if (DISPLAY_USER_MAP.containsKey(user)) return;
         DISPLAY_USER_MAP.put(user, new DisplayUser(user));
     }
 

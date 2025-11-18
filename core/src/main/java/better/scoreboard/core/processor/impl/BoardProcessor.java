@@ -20,18 +20,17 @@ public class BoardProcessor extends Processor<BoardDisplay> {
             if (super.display == null) return;
             super.display = null;
             scoreboard.destroy();
-            user.sendMessage("Destroying scoreboard");
             return;
         }
 
         scoreboard = SBScoreboard.createScoreboard(user, "bsimpltest", display.getTitle().getAnimation().getText(user));
         scoreboard.create();
+        scoreboard.display();
 
         super.display = display;
         // Set active lines.
         for (int i = 0; i < display.getLineCount(); i++) {
             if (display.getLeftText(i).isConditionalTrue(user))
-                user.sendMessage("Setting line " + i + " to " + display.getLeftText(i).getAnimation().getText(user));
             scoreboard.setLeftAlignedText(i,
                     super.display.getLeftText(i).isConditionalTrue(user) ?
                             display.getLeftText(i).getAnimation().getText(user) :
@@ -58,16 +57,13 @@ public class BoardProcessor extends Processor<BoardDisplay> {
 
         if (display.getTitle().isUpdateTick()) {
             scoreboard.setTitle(display.getTitle().getAnimation().getText(user));
-            user.sendMessage("title: " + display.getTitle().getAnimation().getText(user));
         }
         for (int i = 0; i < display.getLineCount(); i++) {
             if (display.getLeftText(i).isUpdateTick()) {
                 if (!display.getLeftText(i).isConditionalTrue(user)) {
                     scoreboard.setLeftAlignedText(i, null);
-                    user.sendMessage("line " + i + " null");
                 } else {
                     scoreboard.setLeftAlignedText(i, display.getLeftText(i).getAnimation().getText(user));
-                    user.sendMessage("line " + i + " " + display.getLeftText(i).getAnimation().getText(user));
                 }
             }
 

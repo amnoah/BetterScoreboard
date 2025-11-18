@@ -5,8 +5,10 @@ import better.scoreboard.core.displayuser.DisplayUserManager;
 import com.github.retrooper.packetevents.event.SimplePacketListenerAbstract;
 import com.github.retrooper.packetevents.event.UserDisconnectEvent;
 import com.github.retrooper.packetevents.event.simple.PacketConfigReceiveEvent;
+import com.github.retrooper.packetevents.event.simple.PacketPlayReceiveEvent;
 import com.github.retrooper.packetevents.event.simple.PacketPlaySendEvent;
 import com.github.retrooper.packetevents.protocol.packettype.PacketType;
+import com.github.retrooper.packetevents.wrapper.play.client.WrapperPlayClientPlayerFlying;
 
 public class JoinLeaveListener extends SimplePacketListenerAbstract {
 
@@ -19,9 +21,17 @@ public class JoinLeaveListener extends SimplePacketListenerAbstract {
     }
 
     @Override
+    public void onPacketPlayReceive(PacketPlayReceiveEvent event) {
+        if (!WrapperPlayClientPlayerFlying.isFlying(event.getPacketType())) return;
+        DisplayUserManager.addDisplayUser(event.getUser());
+    }
+
+    @Override
     public void onPacketPlaySend(PacketPlaySendEvent event) {
+        /*
         if (event.getPacketType() != PacketType.Play.Server.JOIN_GAME) return;
         DisplayUserManager.addDisplayUser(event.getUser());
+         */
     }
 
     @Override
